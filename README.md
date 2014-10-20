@@ -1,4 +1,4 @@
 Shopping-Assistant
 ==================
 
-an app for shopping
+an app for easy-shopping
