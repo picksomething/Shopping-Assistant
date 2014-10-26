@@ -1,5 +1,8 @@
 package cn.picksomething.shopassistant;
 
+
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +14,17 @@ public class HomePage extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_page);
+		/*** 初始化侧滑菜单 Begin ***/
+		SlidingMenu menu = new SlidingMenu(this);
+		menu.setMode(SlidingMenu.LEFT);
+		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		menu.setShadowWidthRes(R.dimen.shadow_width); // 1）
+		menu.setShadowDrawable(R.drawable.shadow); // 2）
+		menu.setBehindOffsetRes(R.dimen.slidingmenu_offset); // 3）
+		menu.setFadeDegree(0.35f);
+		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+		menu.setMenu(R.layout.slidemenu_layout); // 4）
+		/*** 初始化侧滑菜单 End ***/
 	}
 
 	@Override
