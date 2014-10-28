@@ -5,5 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="slidemenu_title">购物助手，敬请期待！</string>
+    <string name="common">常用</string>
+    <string name="setting">设置</string>
 
 </resources>

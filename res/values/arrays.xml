@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="arrays_commom">
+        <item >消息</item>
+        <item >分享</item>
+    </string-array>
+    
+   <string-array name="arrays_setting">
+        <item >选项</item>  
+    </string-array>
+</resources>
