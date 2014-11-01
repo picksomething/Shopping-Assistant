@@ -1,6 +1,5 @@
 package cn.picksomething.shopassistant.ui;
 
-
 import android.os.Bundle;
 import android.view.Window;
 import cn.picksomething.shopassistant.R;
@@ -12,18 +11,18 @@ public class HomePage extends SlidingFragmentActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		 setTheme(R.style.HomePage);
 		super.onCreate(savedInstanceState);
+		setTheme(R.style.HomePage);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.activity_home_page);
-		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.customtitle);
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.customtitle);
 		initSlidingMenu(savedInstanceState);
 	}
 
 	/*** 初始化侧滑菜单 Begin ***/
-	private void initSlidingMenu(Bundle savedInstanceState){
+	private void initSlidingMenu(Bundle savedInstanceState) {
 		setBehindContentView(R.layout.menu_frame);
-		getFragmentManager().beginTransaction().replace(R.id.menu_frame, new CustomMenu()).commit();		
+		getFragmentManager().beginTransaction().replace(R.id.menu_frame, new CustomMenu()).commit();
 
 		SlidingMenu menu = getSlidingMenu();
 		// 设置滑动阴影的宽度
@@ -35,10 +34,9 @@ public class HomePage extends SlidingFragmentActivity {
 		// 设置渐入渐出效果的值
 		menu.setFadeDegree(0.35f);
 		// 设置触摸屏幕的模式
-		menu.setTouchModeAbove(SlidingMenu.SLIDING_CONTENT);			
-
+		menu.setTouchModeAbove(SlidingMenu.SLIDING_CONTENT);
 
 	}
 	/*** 初始化侧滑菜单 End ***/
-	
+
 }

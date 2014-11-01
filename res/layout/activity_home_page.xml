@@ -5,17 +5,37 @@
     android:orientation="vertical"
     tools:context="cn.picksomething.shopassistant.ui.HomePage" >
 
-    <EditText
-        android:id="@+id/goods"
+    <RelativeLayout
+        android:id="@+id/goods_search"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="36dp"
-        android:background="@drawable/bg_edittext"
-        android:hint="@string/input_hint"
-        android:padding="5dip"
-        android:singleLine="true"
-        android:textColorHint="#aaaaaa"
-        android:textSize="24sp" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp" >
+
+        <EditText
+            android:id="@+id/goods"
+            android:layout_width="180dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="26dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="@string/input_hint"
+            android:padding="5dip"
+            android:singleLine="true"
+            android:textColorHint="#aaaaaa"
+            android:textSize="24sp" />
+        
+        <Button
+            android:id="@+id/search"
+            android:layout_width="80dp"
+            android:layout_height="42dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="26dp"
+            android:background="@drawable/bg_edittext"
+            android:gravity="center"
+            android:text="@string/search"
+            android:textColor="@color/blue"
+            android:textSize="24sp"/>
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/priceresults"

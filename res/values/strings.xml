@@ -9,5 +9,6 @@
     <string name="setting">设置</string>
     <string name="input_hint">请输入商品名称</string>
     <string name="home_title">购物助手-货比三家再下手</string>
+    <string name="search">开始吧</string>
 
 </resources>

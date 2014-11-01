@@ -22,9 +22,10 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="HomePage" parent="android:Theme">
+    <style name="HomePage" parent="AppTheme">
         <item name="android:windowTitleSize">60dp</item>
         <item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
+         <item name="android:windowActionBar">false</item>
     </style>
 
     <style name="WindowTitleBackground">
