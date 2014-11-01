@@ -2,6 +2,7 @@ package cn.picksomething.shopassistant.ui;
 
 
 import android.os.Bundle;
+import android.view.Window;
 import cn.picksomething.shopassistant.R;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -11,8 +12,11 @@ public class HomePage extends SlidingFragmentActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		 setTheme(R.style.HomePage);
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.activity_home_page);
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.customtitle);
 		initSlidingMenu(savedInstanceState);
 	}
 

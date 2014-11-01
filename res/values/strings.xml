@@ -7,5 +7,7 @@
     <string name="slidemenu_title">购物助手，敬请期待！</string>
     <string name="common">常用</string>
     <string name="setting">设置</string>
+    <string name="input_hint">请输入商品名称</string>
+    <string name="home_title">购物助手-货比三家再下手</string>
 
 </resources>
