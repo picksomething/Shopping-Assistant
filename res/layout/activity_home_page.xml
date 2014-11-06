@@ -6,41 +6,102 @@
     tools:context="cn.picksomething.shopassistant.ui.HomePage" >
 
     <RelativeLayout
-        android:id="@+id/goods_search"
+        android:id="@+id/goods_search_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="25dp" >
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal" >
 
         <EditText
             android:id="@+id/goods"
-            android:layout_width="180dp"
-            android:layout_height="42dp"
-            android:layout_marginLeft="26dp"
+            android:layout_width="220dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="46dp"
             android:background="@drawable/bg_edittext"
             android:hint="@string/input_hint"
-            android:padding="5dip"
+            android:padding="5dp"
             android:singleLine="true"
             android:textColorHint="#aaaaaa"
             android:textSize="24sp" />
-        
+
         <Button
             android:id="@+id/search"
-            android:layout_width="80dp"
-            android:layout_height="42dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="26dp"
+            android:layout_marginRight="46dp"
             android:background="@drawable/bg_edittext"
             android:gravity="center"
+            android:padding="5dp"
             android:text="@string/search"
             android:textColor="@color/blue"
-            android:textSize="24sp"/>
+            android:textSize="24sp" />
     </RelativeLayout>
 
+    <!--
     <ListView
         android:id="@+id/priceresults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>
+    -->
+
+    <LinearLayout
+        android:id="@+id/goodInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/goodID" />
+
+            <TextView
+                android:id="@+id/goodID"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/goodPrice" />
+
+            <TextView
+                android:id="@+id/goodPrice"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/goodOriginPrice" />
+
+            <TextView
+                android:id="@+id/goodOriginPrice"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

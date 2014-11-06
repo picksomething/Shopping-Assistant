@@ -10,5 +10,8 @@
     <string name="input_hint">请输入商品名称</string>
     <string name="home_title">购物助手-货比三家再下手</string>
     <string name="search">开始吧</string>
+    <string name="goodPrice">商品价格：</string>
+    <string name="goodOriginPrice">原价：</string>
+    <string name="goodID">商品ID：</string>
 
 </resources>
