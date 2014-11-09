@@ -1,11 +1,15 @@
 package cn.picksomething.shopassistant.ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,7 +32,8 @@ public class HomePage extends SlidingFragmentActivity implements OnClickListener
 	private TextView goodOriginPrice;
 	private String goodName;
 	private String jdSearchURL;
-	ArrayList<HashMap<String, Object>> data;
+	ArrayList<HashMap<String, Object>> resultData;
+	private MyHandler myHandler;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,9 +74,9 @@ public class HomePage extends SlidingFragmentActivity implements OnClickListener
 	private void findViews() {
 		mGoodName = (EditText) findViewById(R.id.goods);
 		mSearch = (Button) findViewById(R.id.search);
-		goodId = (TextView)findViewById(R.id.goodID);
-		goodPrice = (TextView)findViewById(R.id.goodPrice);
-		goodOriginPrice = (TextView)findViewById(R.id.goodOriginPrice);
+		goodId = (TextView) findViewById(R.id.goodID);
+		goodPrice = (TextView) findViewById(R.id.goodPrice);
+		goodOriginPrice = (TextView) findViewById(R.id.goodOriginPrice);
 	}
 
 	/**
@@ -82,7 +87,8 @@ public class HomePage extends SlidingFragmentActivity implements OnClickListener
 	private void initDatas() {
 		// TODO Auto-generated method stub
 		goodName = mGoodName.getText().toString();
-		data = new ArrayList<HashMap<String,Object>>();
+		resultData = new ArrayList<HashMap<String, Object>>();
+		myHandler = new MyHandler(getMainLooper());
 		Log.d("caobin", "goodName = " + goodName);
 	}
 
@@ -106,19 +112,17 @@ public class HomePage extends SlidingFragmentActivity implements OnClickListener
 				public void run() {
 					// TODO Auto-generated method stub
 					goodName = mGoodName.getText().toString();
-					Log.d("caobin", "goodName = " + goodName);
 					jdSearchURL = "http://search.jd.com/Search?keyword=" + goodName + "&enc=utf-8";
-					Log.d("caobin", "url = " + jdSearchURL);
-					data = HttpTools.getJsonDataByID(jdSearchURL, goodName);
+					try {
+						resultData = HttpTools.getJsonDataByID(jdSearchURL);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					Message msg = Message.obtain();
+					msg.obj = resultData;
+					myHandler.sendMessage(msg);
 				}
 			}).start();
-			try {
-				Thread.sleep(8000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			initUI();
 			break;
 
 		default:
@@ -126,10 +130,24 @@ public class HomePage extends SlidingFragmentActivity implements OnClickListener
 		}
 	}
 
-	private void initUI() {
+	class MyHandler extends Handler {
+		public MyHandler(Looper looper) {
+			super(looper);
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			showResults();
+		}
+
+	}
+
+	private void showResults() {
 		// TODO Auto-generated method stub
-		Iterator<HashMap<String, Object>> it = data.iterator();
-		while(it.hasNext()){
+		Iterator<HashMap<String, Object>> it = resultData.iterator();
+		while (it.hasNext()) {
 			Map<String, Object> ma = it.next();
 			goodId.setText(ma.get("id").toString());
 			goodPrice.setText(ma.get("price").toString());
