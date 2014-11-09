@@ -151,7 +151,7 @@ public class HomePage extends SlidingFragmentActivity implements OnClickListener
 			Map<String, Object> ma = it.next();
 			goodId.setText(ma.get("id").toString());
 			goodPrice.setText(ma.get("price").toString());
-			goodOriginPrice.setText(ma.get("originPrice").toString());
+			goodOriginPrice.setText(ma.get("name").toString());
 		}
 	}
 
