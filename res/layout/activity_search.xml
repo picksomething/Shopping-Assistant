@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.picksomething.shopassistant.ui.HomePage" >
+
+
+
+    <!--
+    <ListView
+        android:id="@+id/priceresults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+    -->
+
+    <LinearLayout
+        android:id="@+id/goodInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/goodID" />
+
+            <TextView
+                android:id="@+id/goodID"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/goodPrice" />
+
+            <TextView
+                android:id="@+id/goodPrice"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/goodOriginPrice" />
+
+            <TextView
+                android:id="@+id/goodOriginPrice"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
