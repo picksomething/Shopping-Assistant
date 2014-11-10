@@ -3,8 +3,6 @@ package cn.picksomething.shopassistant.ui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,8 +14,9 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
 import cn.picksomething.shopassistant.R;
+import cn.picksomething.shopassistant.adapter.SearchResultAdapter;
 import cn.picksomething.shopassistant.http.HttpTools;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -26,14 +25,13 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 public class HomePage extends SlidingFragmentActivity implements OnClickListener {
 
 	private EditText mGoodName;
+	private ListView mListView;
 	private Button mSearch;
-	private TextView goodId;
-	private TextView goodPrice;
-	private TextView goodOriginPrice;
 	private String goodName;
 	private String jdSearchURL;
 	ArrayList<HashMap<String, Object>> resultData;
 	private MyHandler myHandler;
+	private SearchResultAdapter mResultAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -74,9 +72,7 @@ public class HomePage extends SlidingFragmentActivity implements OnClickListener
 	private void findViews() {
 		mGoodName = (EditText) findViewById(R.id.goods);
 		mSearch = (Button) findViewById(R.id.search);
-		goodId = (TextView) findViewById(R.id.goodID);
-		goodPrice = (TextView) findViewById(R.id.goodPrice);
-		goodOriginPrice = (TextView) findViewById(R.id.goodOriginPrice);
+		mListView =(ListView)findViewById(R.id.goodresults_listView);
 	}
 
 	/**
@@ -85,7 +81,6 @@ public class HomePage extends SlidingFragmentActivity implements OnClickListener
 	 * @created 2014年11月5日
 	 */
 	private void initDatas() {
-		// TODO Auto-generated method stub
 		goodName = mGoodName.getText().toString();
 		resultData = new ArrayList<HashMap<String, Object>>();
 		myHandler = new MyHandler(getMainLooper());
@@ -115,6 +110,8 @@ public class HomePage extends SlidingFragmentActivity implements OnClickListener
 					jdSearchURL = "http://search.jd.com/Search?keyword=" + goodName + "&enc=utf-8";
 					try {
 						resultData = HttpTools.getJsonDataByID(jdSearchURL);
+						HttpTools.addNameToList();
+						Log.d("picksomething", "origin size = " + resultData.size());
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -145,14 +142,12 @@ public class HomePage extends SlidingFragmentActivity implements OnClickListener
 	}
 
 	private void showResults() {
-		// TODO Auto-generated method stub
-		Iterator<HashMap<String, Object>> it = resultData.iterator();
-		while (it.hasNext()) {
-			Map<String, Object> ma = it.next();
-			goodId.setText(ma.get("id").toString());
-			goodPrice.setText(ma.get("price").toString());
-			goodOriginPrice.setText(ma.get("name").toString());
-		}
+		mResultAdapter = new SearchResultAdapter(HomePage.this, resultData);
+		mListView.setAdapter(mResultAdapter);
+		// Iterator<HashMap<String, Object>> it = resultData.iterator();
+		// while (it.hasNext()) {
+		// Map<String, Object> ma = it.next();
+		// }
 	}
 
 }

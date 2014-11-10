@@ -36,6 +36,7 @@ public class HttpTools {
 	
 	private static ArrayList<String> goodIDArray = new ArrayList<String>();
 	private static ArrayList<String> goodsNameArray = new ArrayList<String>();
+	private static ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 
 	/**
 	 * 
@@ -65,7 +66,6 @@ public class HttpTools {
 		}
 		inStream.close();
 		resultData = new String(outputStream.toByteArray());
-		Log.d("caobin", "resultData = " + resultData);
 		return resultData;
 	}
 
@@ -123,11 +123,22 @@ public class HttpTools {
 		while (m.find() && (5 > goodsNum)) {
 			goodsNum++;
 			MatchResult mr = m.toMatchResult();
-			Log.d("picksomething", "id = " + mr.group(1));
 			idArray.add(mr.group(1));
 		}
 		return idArray;
 
+	}
+	
+	public static String matchStringResults(String result, String regx){
+		String goodName = null;
+		Pattern p = Pattern.compile(regx);
+		Matcher m = p.matcher(result);
+		while (m.find()) {
+			MatchResult mr = m.toMatchResult();
+			Log.d("picksomething", "id = " + mr.group(1));
+			goodName = mr.group(1);
+		}
+		return goodName;
 	}
 
 	public static ArrayList<HashMap<String, Object>> getJsonDataByID(String url) throws IOException {
@@ -135,16 +146,18 @@ public class HttpTools {
 		String regxID = "sku=\"(.*?)\"";
 		String regxName = "<title>(.*?)</title>";
 		ArrayList<HashMap<String, Object>> finalDatas = new ArrayList<HashMap<String, Object>>();
+		List<String> jsonItems = new ArrayList<String>();
 		goodIDArray = matchResults(doPost(null, url), regxID);
 		Iterator<String> id = goodIDArray.iterator();
 		String jsonItem = null;
 		while (id.hasNext()) {
 			String tempurl = id.next();
-			Log.d("picksomething", "temp = " + tempurl);
 			String detailUrl = "http://item.jd.com/"+tempurl + ".html";
 			String jsonUrl = "http://p.3.cn/prices/mgets?skuIds=J_" + tempurl;
-			goodsNameArray = matchResults(doPost(null, detailUrl),regxName);
+			goodsNameArray.add(matchStringResults(doPost(null, detailUrl),regxName));
 			jsonItem = searchInJD(jsonUrl);
+			Log.d("picksomething", "jsonitem = " + jsonItem);
+			jsonItems.add(jsonItem);
 			try {
 				finalDatas = AnalysisJson(jsonItem);
 			} catch (JSONException e) {
@@ -157,19 +170,23 @@ public class HttpTools {
 
 	public static ArrayList<HashMap<String, Object>> AnalysisJson(String jsonItem) throws JSONException {
 		JSONArray jsonArray = null;
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		jsonArray = new JSONArray(jsonItem);
 		for (int i = 0; i < jsonArray.length(); i++) {
 			JSONObject jsonObject = jsonArray.getJSONObject(i);
 			// 初始化HashMap
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			// json sample:[{"id":"J_62939582","p":"2.99","m":"2.99"}]
 			map.put("id", jsonObject.getString("id"));
-			map.put("name", goodsNameArray.get(i));
 			map.put("price", jsonObject.getString("p"));
 			map.put("originPrice", jsonObject.getString("m"));
 			list.add(map);
 		}
 		return list;
+	}
+	
+	public static void addNameToList(){
+		for(int j =0; j < list.size(); j++){
+			HashMap<String, Object> nameMap = list.get(j);
+			nameMap.put("name", goodsNameArray.get(j));
+		}
 	}
 }
