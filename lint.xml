@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
-    <issue id="InflateParams">
+    <issue id="InflateParams" severity="ignore">
         <ignore path="src/cn/picksomething/shopassistant/adapter/MenuAdapter.java" />
     </issue>
 </lint>

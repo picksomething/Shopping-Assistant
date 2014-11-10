@@ -3,22 +3,20 @@ package cn.picksomething.shopassistant.ui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.ListView;
 import cn.picksomething.shopassistant.R;
+import cn.picksomething.shopassistant.adapter.SearchResultAdapter;
 import cn.picksomething.shopassistant.http.HttpTools;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -26,48 +24,48 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class SearchActivity extends SherlockFragmentActivity implements OnClickListener {
 
-	private EditText mGoodName;
-	private Button mSearch;
-	private TextView goodId;
-	private TextView goodPrice;
-	private TextView goodOriginPrice;
 	private String goodName;
 	private String jdSearchURL;
 	private ImageButton menuButton;
 	private ImageButton searchFrame;
 	private EditText searchEdit;
-	ArrayList<HashMap<String, Object>> resultData;
+	private Button searchButton;
+	private ListView resultsListView;
 	private MyHandler myHandler;
-	
+	private SearchResultAdapter resultAdapter;
+
+	ArrayList<HashMap<String, Object>> resultData;
+	private static final int DATA_OK = 200;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
-		initView();	
+		initView();
 		initDatas();
 		setListener();
 	}
-	
-	public void initView(){
+
+	public void initView() {
 		initActionBar();
 		findViews();
 	}
-	public void initActionBar(){
+
+	public void initActionBar() {
 		View headView = LayoutInflater.from(this).inflate(R.layout.main_action_bar, null);
-		menuButton=(ImageButton) headView.findViewById(R.id.menu_button);
-		searchFrame=(ImageButton) headView.findViewById(R.id.search_frame);
-		searchEdit=(EditText) headView.findViewById(R.id.editText);
-		mSearch = (Button) headView.findViewById(R.id.search);
+		menuButton = (ImageButton) headView.findViewById(R.id.menu_button);
+		searchFrame = (ImageButton) headView.findViewById(R.id.search_frame);
+		searchEdit = (EditText) headView.findViewById(R.id.editText);
+		searchButton = (Button) headView.findViewById(R.id.search);
 		menuButton.setVisibility(View.GONE);
 		searchFrame.setVisibility(View.GONE);
 		searchEdit.setVisibility(View.VISIBLE);
-		mSearch.setVisibility(View.VISIBLE);
+		searchButton.setVisibility(View.VISIBLE);
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setCustomView(headView);
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.title_bg));
 	}
-
 
 	/**
 	 * 
@@ -75,11 +73,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 	 * @created 2014年11月5日
 	 */
 	private void findViews() {
-		mGoodName = (EditText) findViewById(R.id.editText);
-		mSearch = (Button) findViewById(R.id.search);
-		goodId = (TextView) findViewById(R.id.goodID);
-		goodPrice = (TextView) findViewById(R.id.goodPrice);
-		goodOriginPrice = (TextView) findViewById(R.id.goodOriginPrice);
+		resultsListView = (ListView) findViewById(R.id.goodresults_listView);
 	}
 
 	/**
@@ -89,10 +83,8 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 	 */
 	private void initDatas() {
 		// TODO Auto-generated method stub
-		goodName = mGoodName.getText().toString();
 		resultData = new ArrayList<HashMap<String, Object>>();
 		myHandler = new MyHandler(getMainLooper());
-		Log.d("caobin", "goodName = " + goodName);
 	}
 
 	/**
@@ -101,7 +93,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 	 * @created 2014年11月5日
 	 */
 	private void setListener() {
-		mSearch.setOnClickListener(this);
+		searchButton.setOnClickListener(this);
 	}
 
 	@Override
@@ -114,16 +106,15 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					goodName = mGoodName.getText().toString();
+					goodName = searchEdit.getText().toString();
 					jdSearchURL = "http://search.jd.com/Search?keyword=" + goodName + "&enc=utf-8";
 					try {
 						resultData = HttpTools.getJsonDataByID(jdSearchURL);
+						HttpTools.addNameToList();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					Message msg = Message.obtain();
-					msg.obj = resultData;
-					myHandler.sendMessage(msg);
+					myHandler.sendEmptyMessage(DATA_OK);
 				}
 			}).start();
 			break;
@@ -142,20 +133,10 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
 			super.handleMessage(msg);
-			showResults();
+			resultAdapter = new SearchResultAdapter(SearchActivity.this, resultData);
+			resultsListView.setAdapter(resultAdapter);
 		}
 
-	}
-
-	private void showResults() {
-		// TODO Auto-generated method stub
-		Iterator<HashMap<String, Object>> it = resultData.iterator();
-		while (it.hasNext()) {
-			Map<String, Object> ma = it.next();
-			goodId.setText(ma.get("id").toString());
-			goodPrice.setText(ma.get("price").toString());
-			goodOriginPrice.setText(ma.get("name").toString());
-		}
 	}
 
 }

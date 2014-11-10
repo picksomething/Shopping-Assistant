@@ -5,48 +5,7 @@
     android:orientation="vertical"
     tools:context="cn.picksomething.shopassistant.ui.HomePage" >
 
-<<<<<<< HEAD
-    <RelativeLayout
-        android:id="@+id/goods_search_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal" >
-
-        <EditText
-            android:id="@+id/goods"
-            android:layout_width="220dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="46dp"
-            android:background="@drawable/bg_edittext"
-            android:hint="@string/input_hint"
-            android:padding="5dp"
-            android:singleLine="true"
-            android:textColorHint="#aaaaaa"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/search"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="46dp"
-            android:background="@drawable/bg_edittext"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="@string/search"
-            android:textColor="@color/blue"
-            android:textSize="24sp" />
-    </RelativeLayout>
-
-    
-    <ListView
-        android:id="@+id/goodresults_listView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </ListView>
-=======
-   <FrameLayout
+    <FrameLayout
         android:id="@+id/realtabcontent"
         android:layout_width="fill_parent"
         android:layout_height="0dip"
@@ -55,16 +14,14 @@
     <android.support.v4.app.FragmentTabHost
         android:id="@+id/tabhost"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:background="@drawable/maintab_toolbar_bg">
+        android:layout_height="wrap_content"
+        android:background="@drawable/maintab_toolbar_bg" >
 
         <FrameLayout
             android:id="@+id/tabcontent"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="0" />            
+            android:layout_weight="0" />
     </android.support.v4.app.FragmentTabHost>
->>>>>>> fcc3193f17ba0287ac58b0a9bff4897cd0ee8b55
-   
 
 </LinearLayout>

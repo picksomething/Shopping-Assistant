@@ -110,7 +110,6 @@ public class HttpTools {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Log.d("caobin", "result = " + result);
 		return result;
 	}
 
