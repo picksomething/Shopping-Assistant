@@ -5,6 +5,7 @@
     android:orientation="vertical"
     tools:context="cn.picksomething.shopassistant.ui.HomePage" >
 
+<<<<<<< HEAD
     <RelativeLayout
         android:id="@+id/goods_search_layout"
         android:layout_width="match_parent"
@@ -44,6 +45,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </ListView>
+=======
+   <FrameLayout
+        android:id="@+id/realtabcontent"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" />
+
+    <android.support.v4.app.FragmentTabHost
+        android:id="@+id/tabhost"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:background="@drawable/maintab_toolbar_bg">
+
+        <FrameLayout
+            android:id="@+id/tabcontent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0" />            
+    </android.support.v4.app.FragmentTabHost>
+>>>>>>> fcc3193f17ba0287ac58b0a9bff4897cd0ee8b55
    
 
 </LinearLayout>
