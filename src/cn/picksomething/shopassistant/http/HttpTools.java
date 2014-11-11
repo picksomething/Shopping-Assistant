@@ -157,7 +157,7 @@ public class HttpTools {
 
 	public static ArrayList<HashMap<String, Object>> getJsonDataByID(String url, String goodName) throws IOException {
 		String regxID = "sku=\"(.*?)\"";
-		String regxName = "<div class=\"p-name\">\\n.*?<a target=\"_blank\" href=\".*?\" onclick=\".*?\">\\n\\s+(.*?)<font class='adwords' .*?></font>";
+		String regxName = "<div class=\"p-name\">\\n.*?<a target=\"_blank\" href=\".*?\" onclick=\".*?\">\\n\\s+(.*?) class='adwords' .*?></font>";
 		String searchResultString = null;
 
 		searchResultString = doPost(null, url);
