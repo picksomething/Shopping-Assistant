@@ -34,10 +34,24 @@ import android.util.Log;
 
 public class HttpTools {
 
-	private static ArrayList<String> goodIDArray = new ArrayList<String>();
-	private static ArrayList<String> goodsNameArray = new ArrayList<String>();
-	private static ArrayList<HashMap<String, Object>> jsonDataList = new ArrayList<HashMap<String, Object>>();
-	private static ArrayList<HashMap<String, Object>> finalDataList = new ArrayList<HashMap<String, Object>>();
+	private static ArrayList<String> goodIDArray;
+	private static ArrayList<String> goodsNameArray;
+	private static ArrayList<HashMap<String, Object>> jsonDataList;
+	private static ArrayList<HashMap<String, Object>> finalDataList;
+
+	public static void init() {
+		goodIDArray = new ArrayList<String>();
+		goodsNameArray = new ArrayList<String>();
+		jsonDataList = new ArrayList<HashMap<String, Object>>();
+		finalDataList = new ArrayList<HashMap<String, Object>>();
+	}
+	
+	public static void emptyArray(){
+		goodIDArray = null;
+		goodsNameArray = null;
+		jsonDataList = null;
+		finalDataList = null;
+	}
 
 	/**
 	 * 
@@ -142,13 +156,10 @@ public class HttpTools {
 	}
 
 	public static ArrayList<HashMap<String, Object>> getJsonDataByID(String url, String goodName) throws IOException {
-		goodsNameArray = null;
-		jsonDataList = null;
 		String regxID = "sku=\"(.*?)\"";
 		String regxName = "<div class=\"p-name\">\\n.*?<a target=\"_blank\" href=\".*?\" onclick=\".*?\">\\n\\s+(.*?)<font class='adwords' .*?></font>";
 		String searchResultString = null;
 
-		List<String> jsonItems = new ArrayList<String>();
 		searchResultString = doPost(null, url);
 		goodIDArray = matchResults(searchResultString, regxID);
 		goodsNameArray = (matchResults(searchResultString, regxName));
@@ -158,7 +169,6 @@ public class HttpTools {
 			String tempurl = id.next();
 			String jsonUrl = "http://p.3.cn/prices/mgets?skuIds=J_" + tempurl;
 			jsonItem = searchInJD(jsonUrl);
-			jsonItems.add(jsonItem);
 			try {
 				finalDataList = AnalysisJson(jsonItem);
 			} catch (JSONException e) {

@@ -61,6 +61,7 @@ public class SearchResultAdapter extends BaseAdapter{
 		holder.goodIcon.setImageResource(R.drawable.ic_launcher);
 		holder.goodName.setText(list.get(position).get("name").toString());
 		holder.goodPrice.setText(list.get(position).get("price").toString());
+		Log.d("picksomething", "price = " + list.get(position).get("price").toString());
 		return convertView;
 	}
 	

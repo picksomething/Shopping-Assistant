@@ -101,6 +101,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.search:
+			HttpTools.init();
 			new Thread(new Runnable() {
 
 				@Override
@@ -111,6 +112,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 					try {
 						resultData = HttpTools.getJsonDataByID(jdSearchURL,goodName);
 						HttpTools.addNameToList();
+						HttpTools.emptyArray();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -135,6 +137,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 			super.handleMessage(msg);
 			resultAdapter = new SearchResultAdapter(SearchActivity.this, resultData);
 			resultsListView.setAdapter(resultAdapter);
+			resultAdapter.notifyDataSetChanged();
 		}
 
 	}
