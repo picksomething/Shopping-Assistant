@@ -3,11 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-    
-    <cn.picksomething.shopassistant.widget.swipemenulistview.SwipeMenuListView
-       android:id="@+id/smListView"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent" />
+   	<ImageView
+	    android:id="@+id/hot_head_Image"
+	    android:layout_width="fill_parent"
+	    android:layout_height="300dp"
+	  >
+	    
+	</ImageView>
 
 </LinearLayout>
