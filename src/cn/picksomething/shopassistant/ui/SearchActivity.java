@@ -109,7 +109,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 					goodName = searchEdit.getText().toString();
 					jdSearchURL = "http://search.jd.com/Search?keyword=" + goodName + "&enc=utf-8";
 					try {
-						resultData = HttpTools.getJsonDataByID(jdSearchURL);
+						resultData = HttpTools.getJsonDataByID(jdSearchURL,goodName);
 						HttpTools.addNameToList();
 					} catch (IOException e) {
 						e.printStackTrace();

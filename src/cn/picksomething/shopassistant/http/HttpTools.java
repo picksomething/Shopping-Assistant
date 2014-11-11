@@ -33,10 +33,11 @@ import org.json.JSONObject;
 import android.util.Log;
 
 public class HttpTools {
-	
+
 	private static ArrayList<String> goodIDArray = new ArrayList<String>();
 	private static ArrayList<String> goodsNameArray = new ArrayList<String>();
-	private static ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+	private static ArrayList<HashMap<String, Object>> jsonDataList = new ArrayList<HashMap<String, Object>>();
+	private static ArrayList<HashMap<String, Object>> finalDataList = new ArrayList<HashMap<String, Object>>();
 
 	/**
 	 * 
@@ -114,56 +115,57 @@ public class HttpTools {
 	}
 
 	public static ArrayList<String> matchResults(String result, String regx) {
-		int goodsNum = 0;
-		ArrayList<String> idArray = new ArrayList<String>();
+		int resultNum = 0;
+		ArrayList<String> matchArray = new ArrayList<String>();
 		Pattern p = Pattern.compile(regx);
 		Matcher m = p.matcher(result);
 
-		while (m.find() && (5 > goodsNum)) {
-			goodsNum++;
+		while (m.find() && (5 > resultNum)) {
+			resultNum++;
 			MatchResult mr = m.toMatchResult();
-			idArray.add(mr.group(1));
+			matchArray.add(mr.group(1));
+			Log.d("picksomething", "matchResult = " + mr.group(1));
 		}
-		return idArray;
+		return matchArray;
 
 	}
-	
-	public static String matchStringResults(String result, String regx){
+
+	public static String matchStringResults(String result, String regx) {
 		String goodName = null;
 		Pattern p = Pattern.compile(regx);
 		Matcher m = p.matcher(result);
 		while (m.find()) {
 			MatchResult mr = m.toMatchResult();
-			Log.d("picksomething", "id = " + mr.group(1));
 			goodName = mr.group(1);
 		}
 		return goodName;
 	}
 
-	public static ArrayList<HashMap<String, Object>> getJsonDataByID(String url) throws IOException {
-		
+	public static ArrayList<HashMap<String, Object>> getJsonDataByID(String url, String goodName) throws IOException {
+		goodsNameArray = null;
+		jsonDataList = null;
 		String regxID = "sku=\"(.*?)\"";
-		String regxName = "<title>(.*?)</title>";
-		ArrayList<HashMap<String, Object>> finalDatas = new ArrayList<HashMap<String, Object>>();
+		String regxName = "<div class=\"p-name\">\\n.*?<a target=\"_blank\" href=\".*?\" onclick=\".*?\">\\n\\s+(.*?)<font class='adwords' .*?></font>";
+		String searchResultString = null;
+
 		List<String> jsonItems = new ArrayList<String>();
-		goodIDArray = matchResults(doPost(null, url), regxID);
+		searchResultString = doPost(null, url);
+		goodIDArray = matchResults(searchResultString, regxID);
+		goodsNameArray = (matchResults(searchResultString, regxName));
 		Iterator<String> id = goodIDArray.iterator();
 		String jsonItem = null;
 		while (id.hasNext()) {
 			String tempurl = id.next();
-			String detailUrl = "http://item.jd.com/"+tempurl + ".html";
 			String jsonUrl = "http://p.3.cn/prices/mgets?skuIds=J_" + tempurl;
-			goodsNameArray.add(matchStringResults(doPost(null, detailUrl),regxName));
 			jsonItem = searchInJD(jsonUrl);
-			Log.d("picksomething", "jsonitem = " + jsonItem);
 			jsonItems.add(jsonItem);
 			try {
-				finalDatas = AnalysisJson(jsonItem);
+				finalDataList = AnalysisJson(jsonItem);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-		return finalDatas;
+		return finalDataList;
 
 	}
 
@@ -176,15 +178,14 @@ public class HttpTools {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("id", jsonObject.getString("id"));
 			map.put("price", jsonObject.getString("p"));
-			map.put("originPrice", jsonObject.getString("m"));
-			list.add(map);
+			jsonDataList.add(map);
 		}
-		return list;
+		return jsonDataList;
 	}
-	
-	public static void addNameToList(){
-		for(int j =0; j < list.size(); j++){
-			HashMap<String, Object> nameMap = list.get(j);
+
+	public static void addNameToList() {
+		for (int j = 0; j < goodsNameArray.size(); j++) {
+			HashMap<String, Object> nameMap = jsonDataList.get(j);
 			nameMap.put("name", goodsNameArray.get(j));
 		}
 	}
