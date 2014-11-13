@@ -23,6 +23,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
@@ -45,8 +46,8 @@ public class HttpTools {
 		jsonDataList = new ArrayList<HashMap<String, Object>>();
 		finalDataList = new ArrayList<HashMap<String, Object>>();
 	}
-	
-	public static void emptyArray(){
+
+	public static void emptyArray() {
 		goodIDArray = null;
 		goodsNameArray = null;
 		jsonDataList = null;
@@ -128,12 +129,48 @@ public class HttpTools {
 		return result;
 	}
 
+	public static String getDataByPost(String keyword, String url) {
+		String results = null;
+		// Creating HTTP client
+		HttpClient httpClient = new DefaultHttpClient();
+		// Creating HTTP Post
+		HttpPost httpPost = new HttpPost(url);
+		// Building post parameters
+		// key and value pair
+		List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
+		nameValuePair.add(new BasicNameValuePair("hotwords", keyword));
+		nameValuePair.add(new BasicNameValuePair("enc", "utf-8"));
+		// Url Encoding the POST parameters
+		try {
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+		} catch (UnsupportedEncodingException e) {
+			// writing error to Log
+			e.printStackTrace();
+		}
+		// Making HTTP Request
+		try {
+			HttpResponse response = httpClient.execute(httpPost);
+			if (200 == response.getStatusLine().getStatusCode()) {
+				results = EntityUtils.toString(response.getEntity(), "UTF-8");
+				Log.d("caobin", "results = " + results);
+			}else{
+				Log.d("caobin", "httppost request failed");
+			}
+		} catch (ClientProtocolException e) {
+			// writing exception to log
+			e.printStackTrace();
+		} catch (IOException e) {
+			// writing exception to log
+			e.printStackTrace();
+		}
+		return results;
+	}
+
 	public static ArrayList<String> matchResults(String result, String regx) {
 		int resultNum = 0;
 		ArrayList<String> matchArray = new ArrayList<String>();
 		Pattern p = Pattern.compile(regx);
 		Matcher m = p.matcher(result);
-
 		while (m.find() && (5 > resultNum)) {
 			resultNum++;
 			MatchResult mr = m.toMatchResult();
@@ -143,16 +180,45 @@ public class HttpTools {
 		return matchArray;
 
 	}
-
-	public static String matchStringResults(String result, String regx) {
-		String goodName = null;
-		Pattern p = Pattern.compile(regx);
-		Matcher m = p.matcher(result);
-		while (m.find()) {
-			MatchResult mr = m.toMatchResult();
-			goodName = mr.group(1);
+	
+	/**
+	 * 
+	 * @author caobin
+	 * @created 2014年11月14日
+	 * @param inputString
+	 * @return
+	 */
+	public static String htmlRemoveTag(String inputString) {
+		if (inputString == null)
+			return null;
+		String htmlStr = inputString; // 含html标签的字符串
+		String textStr = "";
+		java.util.regex.Pattern p_script;
+		java.util.regex.Matcher m_script;
+		java.util.regex.Pattern p_style;
+		java.util.regex.Matcher m_style;
+		java.util.regex.Pattern p_html;
+		java.util.regex.Matcher m_html;
+		try {
+			//定义script的正则表达式{或<script[^>]*?>[\\s\\S]*?<\\/script>
+			String regEx_script = "<[\\s]*?script[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?script[\\s]*?>"; 
+			//定义style的正则表达式{或<style[^>]*?>[\\s\\S]*?<\\/style>
+			String regEx_style = "<[\\s]*?style[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?style[\\s]*?>"; 
+			String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
+			p_script = Pattern.compile(regEx_script, Pattern.CASE_INSENSITIVE);
+			m_script = p_script.matcher(htmlStr);
+			htmlStr = m_script.replaceAll(""); // 过滤script标签
+			p_style = Pattern.compile(regEx_style, Pattern.CASE_INSENSITIVE);
+			m_style = p_style.matcher(htmlStr);
+			htmlStr = m_style.replaceAll(""); // 过滤style标签
+			p_html = Pattern.compile(regEx_html, Pattern.CASE_INSENSITIVE);
+			m_html = p_html.matcher(htmlStr);
+			htmlStr = m_html.replaceAll(""); // 过滤html标签
+			textStr = htmlStr;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return goodName;
+		return textStr;// 返回文本字符串
 	}
 
 	public static ArrayList<HashMap<String, Object>> getJsonDataByID(String url, String goodName) throws IOException {
@@ -196,7 +262,10 @@ public class HttpTools {
 	public static void addNameToList() {
 		for (int j = 0; j < goodsNameArray.size(); j++) {
 			HashMap<String, Object> nameMap = jsonDataList.get(j);
-			nameMap.put("name", goodsNameArray.get(j));
+			String nameForFilter = goodsNameArray.get(j)+">";
+			String realName = htmlRemoveTag(nameForFilter);
+			Log.d("picksomething", "after filter realName = " + realName);
+			nameMap.put("name", realName);
 		}
 	}
 }
