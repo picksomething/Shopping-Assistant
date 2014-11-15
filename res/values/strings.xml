@@ -13,5 +13,6 @@
     <string name="goodPrice">商品价格：</string>
     <string name="goodOriginPrice">原价：</string>
     <string name="goodID">商品ID：</string>
+    <string name="start">立即体验</string>
 
 </resources>
