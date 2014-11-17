@@ -31,18 +31,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 public class HttpTools {
 
 	private static ArrayList<String> goodIDArray;
 	private static ArrayList<String> goodsNameArray;
+	private static ArrayList<String> goodsLinkArray;
+	private static ArrayList<String> goodsImageLinkArray;
+	private static ArrayList<Bitmap> goodsImageArray;
 	private static ArrayList<HashMap<String, Object>> jsonDataList;
 	private static ArrayList<HashMap<String, Object>> finalDataList;
 
 	public static void init() {
 		goodIDArray = new ArrayList<String>();
 		goodsNameArray = new ArrayList<String>();
+		goodsLinkArray = new ArrayList<String>();
+		goodsImageLinkArray = new ArrayList<String>();
+		goodsImageArray = new ArrayList<Bitmap>();
 		jsonDataList = new ArrayList<HashMap<String, Object>>();
 		finalDataList = new ArrayList<HashMap<String, Object>>();
 	}
@@ -50,6 +57,9 @@ public class HttpTools {
 	public static void emptyArray() {
 		goodIDArray = null;
 		goodsNameArray = null;
+		goodsLinkArray = null;
+		goodsImageLinkArray = null;
+		goodsImageArray = null;
 		jsonDataList = null;
 		finalDataList = null;
 	}
@@ -165,6 +175,11 @@ public class HttpTools {
 		}
 		return results;
 	}
+	
+	public static ArrayList<Bitmap> getGoodsImage(String url){
+		return goodsImageArray;
+		
+	}
 
 	public static ArrayList<String> matchResults(String result, String regx) {
 		int resultNum = 0;
@@ -224,9 +239,13 @@ public class HttpTools {
 	public static ArrayList<HashMap<String, Object>> getJsonDataByID(String url, String goodName) throws IOException {
 		String regxID = "sku=\"(.*?)\"";
 		String regxName = "<div class=\"p-name\">\\n.*?<a target=\"_blank\" href=\".*?\" onclick=\".*?\">\\n\\s+(.*?) class='adwords' .*?></font>";
+		String regxLink = "<div class=\"p-img\">\\n\\s+<a target=\"_blank\" href=\"(.*?)\" onclick=\".*?\">";
+		String regxImageLink = "<img .*? data-lazyload=\"(.*?)\" />";
 		String searchResultString = null;
 
 		searchResultString = doPost(null, url);
+		goodsLinkArray = matchResults(searchResultString, regxLink);
+		goodsImageLinkArray = matchResults(searchResultString, regxImageLink);
 		goodIDArray = matchResults(searchResultString, regxID);
 		goodsNameArray = (matchResults(searchResultString, regxName));
 		Iterator<String> id = goodIDArray.iterator();
