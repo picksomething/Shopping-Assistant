@@ -32,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 public class HttpTools {
@@ -176,8 +177,23 @@ public class HttpTools {
 		return results;
 	}
 	
-	public static ArrayList<Bitmap> getGoodsImage(String url){
-		return goodsImageArray;
+	public static Bitmap getGoodsImage(String path) throws IOException{
+		Bitmap bitmap = null;
+		try {
+			URL url = new URL(path);
+			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			conn.setConnectTimeout(5000);
+			conn.setRequestMethod("GET");
+			if(conn.getResponseCode() == 200){
+				InputStream inStream = conn.getInputStream();
+				bitmap = BitmapFactory.decodeStream(inStream);
+			}
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return bitmap;
 		
 	}
 
@@ -240,7 +256,7 @@ public class HttpTools {
 		String regxID = "sku=\"(.*?)\"";
 		String regxName = "<div class=\"p-name\">\\n.*?<a target=\"_blank\" href=\".*?\" onclick=\".*?\">\\n\\s+(.*?) class='adwords' .*?></font>";
 		String regxLink = "<div class=\"p-img\">\\n\\s+<a target=\"_blank\" href=\"(.*?)\" onclick=\".*?\">";
-		String regxImageLink = "<img .*? data-lazyload=\"(.*?)\" />";
+		String regxImageLink = "<img width=\"220\".*? data-lazyload=\"(.*?)\" />";
 		String searchResultString = null;
 
 		searchResultString = doPost(null, url);
@@ -278,13 +294,16 @@ public class HttpTools {
 		return jsonDataList;
 	}
 
-	public static void addNameToList() {
+	public static void addNameToList() throws IOException {
 		for (int j = 0; j < goodsNameArray.size(); j++) {
-			HashMap<String, Object> nameMap = jsonDataList.get(j);
+			HashMap<String, Object> goodMap = jsonDataList.get(j);
 			String nameForFilter = goodsNameArray.get(j)+">";
 			String realName = htmlRemoveTag(nameForFilter);
 			Log.d("picksomething", "after filter realName = " + realName);
-			nameMap.put("name", realName);
+			goodsImageArray.add(getGoodsImage(goodsImageLinkArray.get(j)));
+			goodMap.put("name", realName);
+			goodMap.put("link", goodsLinkArray.get(j));
+			goodMap.put("image", goodsImageArray.get(j));
 		}
 	}
 }

@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/goodItem_icon"
-        android:layout_width="72dp"
-        android:layout_height="wrap_content"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_alignParentStart="true"
         android:contentDescription="@string/app_name"
         android:padding="5dp"
