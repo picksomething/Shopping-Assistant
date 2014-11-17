@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,6 +12,8 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -138,6 +141,18 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 			resultAdapter = new SearchResultAdapter(SearchActivity.this, resultData);
 			resultsListView.setAdapter(resultAdapter);
 			resultAdapter.notifyDataSetChanged();
+			resultsListView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					// TODO Auto-generated method stub
+					HashMap<String, Object> map = resultData.get(position);
+					String url = (String) (map.get("link"));
+					Intent intent = new Intent(SearchActivity.this, GoodWebView.class);
+					intent.putExtra("url", url);
+					startActivity(intent);
+				}
+			});
 		}
 
 	}
