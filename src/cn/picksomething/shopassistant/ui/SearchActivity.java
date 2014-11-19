@@ -114,7 +114,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 					jdSearchURL = "http://search.jd.com/Search?keyword=" + goodName + "&enc=utf-8";
 					try {
 						resultData = HttpTools.getJsonDataByID(jdSearchURL,goodName);
-						HttpTools.addNameToList();
+						HttpTools.addGoodInfo();
 						HttpTools.emptyArray();
 					} catch (IOException e) {
 						e.printStackTrace();

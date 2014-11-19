@@ -39,7 +39,6 @@ public class HttpTools {
 
 	private static ArrayList<String> goodIDArray;
 	private static ArrayList<String> goodsNameArray;
-	private static ArrayList<String> goodsLinkArray;
 	private static ArrayList<String> goodsImageLinkArray;
 	private static ArrayList<Bitmap> goodsImageArray;
 	private static ArrayList<HashMap<String, Object>> jsonDataList;
@@ -48,7 +47,6 @@ public class HttpTools {
 	public static void init() {
 		goodIDArray = new ArrayList<String>();
 		goodsNameArray = new ArrayList<String>();
-		goodsLinkArray = new ArrayList<String>();
 		goodsImageLinkArray = new ArrayList<String>();
 		goodsImageArray = new ArrayList<Bitmap>();
 		jsonDataList = new ArrayList<HashMap<String, Object>>();
@@ -58,7 +56,6 @@ public class HttpTools {
 	public static void emptyArray() {
 		goodIDArray = null;
 		goodsNameArray = null;
-		goodsLinkArray = null;
 		goodsImageLinkArray = null;
 		goodsImageArray = null;
 		jsonDataList = null;
@@ -164,7 +161,7 @@ public class HttpTools {
 			if (200 == response.getStatusLine().getStatusCode()) {
 				results = EntityUtils.toString(response.getEntity(), "UTF-8");
 				Log.d("caobin", "results = " + results);
-			}else{
+			} else {
 				Log.d("caobin", "httppost request failed");
 			}
 		} catch (ClientProtocolException e) {
@@ -176,15 +173,15 @@ public class HttpTools {
 		}
 		return results;
 	}
-	
-	public static Bitmap getGoodsImage(String path) throws IOException{
+
+	public static Bitmap getGoodsImage(String path) throws IOException {
 		Bitmap bitmap = null;
 		try {
 			URL url = new URL(path);
-			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setConnectTimeout(5000);
 			conn.setRequestMethod("GET");
-			if(conn.getResponseCode() == 200){
+			if (conn.getResponseCode() == 200) {
 				InputStream inStream = conn.getInputStream();
 				bitmap = BitmapFactory.decodeStream(inStream);
 			}
@@ -192,9 +189,9 @@ public class HttpTools {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return bitmap;
-		
+
 	}
 
 	public static ArrayList<String> matchResults(String result, String regx) {
@@ -211,7 +208,7 @@ public class HttpTools {
 		return matchArray;
 
 	}
-	
+
 	/**
 	 * 
 	 * @author caobin
@@ -231,10 +228,10 @@ public class HttpTools {
 		java.util.regex.Pattern p_html;
 		java.util.regex.Matcher m_html;
 		try {
-			//定义script的正则表达式{或<script[^>]*?>[\\s\\S]*?<\\/script>
-			String regEx_script = "<[\\s]*?script[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?script[\\s]*?>"; 
-			//定义style的正则表达式{或<style[^>]*?>[\\s\\S]*?<\\/style>
-			String regEx_style = "<[\\s]*?style[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?style[\\s]*?>"; 
+			// 定义script的正则表达式{或<script[^>]*?>[\\s\\S]*?<\\/script>
+			String regEx_script = "<[\\s]*?script[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?script[\\s]*?>";
+			// 定义style的正则表达式{或<style[^>]*?>[\\s\\S]*?<\\/style>
+			String regEx_style = "<[\\s]*?style[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?style[\\s]*?>";
 			String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
 			p_script = Pattern.compile(regEx_script, Pattern.CASE_INSENSITIVE);
 			m_script = p_script.matcher(htmlStr);
@@ -254,13 +251,14 @@ public class HttpTools {
 
 	public static ArrayList<HashMap<String, Object>> getJsonDataByID(String url, String goodName) throws IOException {
 		String regxID = "sku=\"(.*?)\"";
-		String regxName = "<div class=\"p-name\">\\n.*?<a target=\"_blank\" href=\".*?\" onclick=\".*?\">\\n\\s+(.*?) class='adwords' .*?></font>";
-		String regxLink = "<div class=\"p-img\">\\n\\s+<a target=\"_blank\" href=\"(.*?)\" onclick=\".*?\">";
+		String regxName = "<div class=\"p-name\">\\n\\s+<.*?>\\n\\s+(.*?) class='adwords' .*?></font>";
+		// String regxLink =
+		// "<div class=\"p-img\">\\n\\s+<a target=\"_blank\" href=\"(.*?)\" onclick=\".*?\">";
 		String regxImageLink = "<img width=\"220\".*? data-lazyload=\"(.*?)\" />";
 		String searchResultString = null;
 
 		searchResultString = doPost(null, url);
-		goodsLinkArray = matchResults(searchResultString, regxLink);
+		// goodsLinkArray = matchResults(searchResultString, regxLink);
 		goodsImageLinkArray = matchResults(searchResultString, regxImageLink);
 		goodIDArray = matchResults(searchResultString, regxID);
 		goodsNameArray = (matchResults(searchResultString, regxName));
@@ -294,15 +292,16 @@ public class HttpTools {
 		return jsonDataList;
 	}
 
-	public static void addNameToList() throws IOException {
+	public static void addGoodInfo() throws IOException {
 		for (int j = 0; j < goodsNameArray.size(); j++) {
 			HashMap<String, Object> goodMap = jsonDataList.get(j);
-			String nameForFilter = goodsNameArray.get(j)+">";
-			String realName = htmlRemoveTag(nameForFilter);
-			Log.d("picksomething", "after filter realName = " + realName);
+			String nameForFilter = goodsNameArray.get(j) + ">";
+			String filtedName = htmlRemoveTag(nameForFilter);
+			String mLink = "http://m.jd.com/product/" + goodIDArray.get(j) + ".html";
+			Log.d("picksomething", "after filter realName = " + filtedName);
 			goodsImageArray.add(getGoodsImage(goodsImageLinkArray.get(j)));
-			goodMap.put("name", realName);
-			goodMap.put("link", goodsLinkArray.get(j));
+			goodMap.put("name", filtedName);
+			goodMap.put("link", mLink);
 			goodMap.put("image", goodsImageArray.get(j));
 		}
 	}
