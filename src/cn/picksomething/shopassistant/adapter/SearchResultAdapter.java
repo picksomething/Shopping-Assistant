@@ -16,14 +16,14 @@ import cn.picksomething.shopassistant.R;
 
 public class SearchResultAdapter extends BaseAdapter {
 	private LayoutInflater mLayoutInflater;
-	private Context context;
+	private Context mContext;
 	private List<HashMap<String, Object>> list;
 
 	public SearchResultAdapter(Context context, List<HashMap<String, Object>> list) {
 		// TODO Auto-generated constructor stub
-		this.context = context;
+		this.mContext = context;
 		this.list = list;
-		this.mLayoutInflater = LayoutInflater.from(context);
+		this.mLayoutInflater = LayoutInflater.from(mContext);
 	}
 
 	@Override
