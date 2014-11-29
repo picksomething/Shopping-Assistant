@@ -52,30 +52,32 @@ public class SearchResultAdapter extends BaseAdapter {
 		if (null == convertView) {
 			holder = new ViewHolder();
 			convertView = mLayoutInflater.inflate(R.layout.goods_item, null);
-			holder.goodIcon = (ImageView) convertView.findViewById(R.id.goodItem_icon);
+			holder.goodBitmap = (ImageView) convertView.findViewById(R.id.goodItem_icon);
 			holder.goodName = (TextView) convertView.findViewById(R.id.goodItem_name);
 			holder.goodPrice = (TextView) convertView.findViewById(R.id.goodItem_price);
+			holder.goodSource = (TextView)convertView.findViewById(R.id.goodItem_source);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		if (null != list) {
-			holder.goodIcon.setImageBitmap((Bitmap) list.get(position).get("image"));
-			holder.goodName.setText(list.get(position).get("name").toString());
-			holder.goodPrice.setText("￥ " + list.get(position).get("price").toString());
+			holder.goodBitmap.setImageBitmap((Bitmap) list.get(position).get("goodBitmap"));
+			holder.goodName.setText(list.get(position).get("goodName").toString());
+			holder.goodPrice.setText("￥ " + list.get(position).get("goodPrice").toString());
+			holder.goodSource.setText("来自:" + list.get(position).get("goodSource").toString());
 		}else{
-			holder.goodIcon.setImageResource(R.drawable.ic_launcher);
+			holder.goodBitmap.setImageResource(R.drawable.ic_launcher);
 			holder.goodName.setText(list.get(position).get("name").toString());
 			holder.goodPrice.setText("￥ " + list.get(position).get("price").toString());
 		}
-		Log.d("picksomething", "price = " + list.get(position).get("price").toString());
 		return convertView;
 	}
 
 	private static class ViewHolder {
-		ImageView goodIcon;
+		ImageView goodBitmap;
 		TextView goodName;
 		TextView goodPrice;
+		TextView goodSource;
 	}
 
 }

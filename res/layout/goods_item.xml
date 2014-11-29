@@ -17,14 +17,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/goodItem_icon"
-        android:padding="5dp"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="5dp" >
 
         <TextView
             android:id="@+id/goodItem_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/DarkGray" />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/goodItem_price"
@@ -32,6 +32,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:textColor="@color/red" />
+
+        <TextView
+            android:id="@+id/goodItem_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/blue" />
     </LinearLayout>
 
 </RelativeLayout>

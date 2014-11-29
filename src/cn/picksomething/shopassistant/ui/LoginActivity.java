@@ -70,7 +70,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 					nameValuePair.add(new BasicNameValuePair("password", mPassword));
 					JSONObject jsonObject=null;
 					try {
-						String retStr = HttpTools.doPost(nameValuePair, url);
+						String retStr = HttpTools.getStringResult(nameValuePair, url);
 						 jsonObject = new JSONObject(retStr);
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block

@@ -11,8 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,8 +29,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class SearchActivity extends SherlockFragmentActivity implements OnClickListener {
 
-	private String goodName;
-	private String jdSearchURL;
 	private ImageButton menuButton;
 	private ImageButton searchFrame;
 	private EditText searchEdit;
@@ -42,7 +38,12 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 	private SearchResultAdapter resultAdapter;
 	private ProgressDialog progress;
 
-	ArrayList<HashMap<String, Object>> resultData;
+	ArrayList<HashMap<String, Object>> jdSearchResults;
+	private String goodName;
+	private String jdSearchURL;
+	private String tmallSearchURL;
+	private String suningSearchURL;
+	private String gomeSearchURL;
 	private static final int DATA_OK = 200;
 
 	@Override
@@ -91,7 +92,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 	 */
 	private void initDatas() {
 		// TODO Auto-generated method stub
-		resultData = new ArrayList<HashMap<String, Object>>();
+		jdSearchResults = new ArrayList<HashMap<String, Object>>();
 		myHandler = new MyHandler(getMainLooper());
 		progress = new ProgressDialog(this);
 	}
@@ -119,29 +120,10 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 	private void startSearch() {
 		goodName = searchEdit.getText().toString();
 		jdSearchURL = "http://search.jd.com/Search?keyword=" + goodName + "&enc=utf-8";
-		new GetGoodsInfo().execute(jdSearchURL, goodName);
-	}
-
-	@Override
-	public boolean dispatchKeyEvent(KeyEvent event) {
-		// TODO Auto-generated method stub
-//		if(event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
-//			startSearch();
-//			Log.d("picksomething", "come here dispatchKeyEvent");
-//		}
-		return super.dispatchKeyEvent(event);
-	}
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		switch (keyCode) {
-		case KeyEvent.KEYCODE_ENTER:
-			Log.d("picksomething", "come here onKeyDown");
-			startSearch();
-			break;
-		default:
-			break;
-		}
-		return super.onKeyDown(keyCode, event);
+		tmallSearchURL = "http://list.tmall.com/search_product.htm?q=" + goodName;
+		suningSearchURL = "http://search.suning.com/" + goodName + "/";
+		gomeSearchURL = "http://www.gome.com.cn/search?question=" + goodName;
+		new GetGoodsInfo().execute(jdSearchURL, tmallSearchURL);
 	}
 
 	private class GetGoodsInfo extends AsyncTask<String, Integer, Long> {
@@ -150,7 +132,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 		protected void onPreExecute() {
 			super.onPreExecute();
 			HttpTools.init();
-			progress.setMessage("Hello World");
+			progress.setMessage("正在努力搜索中...");
 			progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 			progress.setIndeterminate(true);
 			progress.show();
@@ -159,7 +141,8 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 		@Override
 		protected Long doInBackground(String... params) {
 			try {
-				resultData = HttpTools.getJsonDataByID(params[0], params[1]);
+				jdSearchResults = HttpTools.getFinalReslut(params[0], 0);
+				jdSearchResults = HttpTools.getFinalReslut(params[1], 1);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -175,7 +158,8 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 		protected void onPostExecute(Long result) {
 			super.onPostExecute(result);
 			progress.dismiss();
-			myHandler.sendEmptyMessageDelayed(DATA_OK, 1000);
+			// myHandler.sendEmptyMessageDelayed(DATA_OK, 1000);
+			myHandler.sendEmptyMessage(DATA_OK);
 		}
 	}
 
@@ -186,14 +170,9 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 
 		@Override
 		public void handleMessage(Message msg) {
-			try {
-				HttpTools.addGoodInfo();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			HttpTools.emptyArray();
 			super.handleMessage(msg);
-			resultAdapter = new SearchResultAdapter(SearchActivity.this, resultData);
+			resultAdapter = new SearchResultAdapter(SearchActivity.this, jdSearchResults);
 			resultsListView.setAdapter(resultAdapter);
 			resultAdapter.notifyDataSetChanged();
 			resultsListView.setOnItemClickListener(new OnItemClickListener() {
@@ -201,7 +180,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					// TODO Auto-generated method stub
-					HashMap<String, Object> map = resultData.get(position);
+					HashMap<String, Object> map = jdSearchResults.get(position);
 					String url = (String) (map.get("link"));
 					Intent intent = new Intent(SearchActivity.this, GoodWebView.class);
 					intent.putExtra("url", url);

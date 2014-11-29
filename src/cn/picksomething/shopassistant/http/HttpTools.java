@@ -37,29 +37,21 @@ import android.util.Log;
 
 public class HttpTools {
 
-	private static ArrayList<String> goodIDArray;
-	private static ArrayList<String> goodsNameArray;
-	private static ArrayList<String> goodsImageLinkArray;
-	private static ArrayList<Bitmap> goodsImageArray;
-	private static ArrayList<HashMap<String, Object>> jsonDataList;
-	private static ArrayList<HashMap<String, Object>> finalDataList;
+	private static ArrayList<HashMap<String, Object>> finalResults;
+	private static String regxID;
+	private static String regxName;
+	private static String regxImageLink;
+	private static String regxPrice;
+	private static String jdResultString;
+	private static String tmallResultString;
+	private static String suningResultString;
 
 	public static void init() {
-		goodIDArray = new ArrayList<String>();
-		goodsNameArray = new ArrayList<String>();
-		goodsImageLinkArray = new ArrayList<String>();
-		goodsImageArray = new ArrayList<Bitmap>();
-		jsonDataList = new ArrayList<HashMap<String, Object>>();
-		finalDataList = new ArrayList<HashMap<String, Object>>();
+		finalResults = new ArrayList<HashMap<String, Object>>();
 	}
 
 	public static void emptyArray() {
-		goodIDArray = null;
-		goodsNameArray = null;
-		goodsImageLinkArray = null;
-		goodsImageArray = null;
-		jsonDataList = null;
-		finalDataList = null;
+		finalResults = null;
 	}
 
 	/**
@@ -70,7 +62,8 @@ public class HttpTools {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String searchInJD(String jdUrl) throws IOException {
+	public static String requestJdJson(String jdUrl) throws IOException {
+		Log.d("picksomething", "** call getJdPrice **");
 		String resultData = null;
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		HttpURLConnection connection = null;
@@ -97,11 +90,10 @@ public class HttpTools {
 	 * 
 	 * @author caobin
 	 * @created 2014年11月6日
-	 * @param params
 	 * @param url
 	 * @return
 	 */
-	public static String doPost(List<NameValuePair> params, String url) {
+	public static String getStringResult(List<NameValuePair> params, String url) {
 		String result = null;
 		// get HttpClient intance
 		HttpClient httpClient = new DefaultHttpClient();
@@ -249,78 +241,141 @@ public class HttpTools {
 		return textStr;// 返回文本字符串
 	}
 
-	public static ArrayList<HashMap<String, Object>> getJsonDataByID(String url, String goodName) throws IOException {
-		Thread filterThread = null;
-		String regxID = "sku=\"(.*?)\"";
-		String regxName = "<div class=\"p-name\">\\n\\s+<.*?>\\n\\s+(.*?) class='adwords' .*?></font>";
-		String regxImageLink = "<img width=\"220\".*? data-lazyload=\"(.*?)\" />";
-		String searchResultString = null;
+	public static ArrayList<HashMap<String, Object>> getFinalReslut(String url, int source) throws IOException {
+		if (0 == source) {
+			regxID = "sku=\"(.*?)\"";
+			regxName = "<div class=\"p-name\">\\n\\s+<.*?>\\n\\s+(.*?) class='adwords' .*?></font>";
+			regxImageLink = "<img width=\"220\".*? data-lazyload=\"(.*?)\" />";
+			jdResultString = getStringResult(null, url);
+			ArrayList<String> jdIDArray = matchResults(jdResultString, regxID);
+			ArrayList<String> jdNameArray = filterJdName(matchResults(jdResultString, regxName));
+			ArrayList<String> jdImageLinkArray = matchResults(jdResultString, regxImageLink);
+			ArrayList<Bitmap> jdBitmapArray = getBitmapArray(jdImageLinkArray);
+			ArrayList<String> jdPriceArray = getJdPrice(jdIDArray);
+			ArrayList<HashMap<String, Object>> jdResults = new ArrayList<HashMap<String, Object>>();
+			for (int i = 0; i < jdIDArray.size(); i++) {
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("goodName", jdNameArray.get(i));
+				map.put("goodBitmap", jdBitmapArray.get(i));
+				map.put("goodPrice", jdPriceArray.get(i));
+				map.put("goodSource", "京东");
+				jdResults.add(map);
+			}
+			finalResults.addAll(jdResults);
+		} else if (1 == source) {
+			regxID = "<div class=\"product\" data-id=\"(.*?)\"";
+			regxName = "title=\"(.*?)\" data-p=\".*?\" >";
+			regxImageLink = "<img  src=  \"(.*?)\" />";
+			regxPrice = "<em title=\"(.*?)\">";
+			tmallResultString = getStringResult(null, url);
+			ArrayList<String> tmallIDArray = matchResults(tmallResultString, regxID);
+			ArrayList<String> tmallNameArray = matchResults(tmallResultString, regxName);
+			ArrayList<String> tmallImageLinkArray = matchResults(tmallResultString, regxImageLink);
+			ArrayList<Bitmap> tmallBitmapArray = getBitmapArray(tmallImageLinkArray);
+			ArrayList<String> tmallPriceArray = matchResults(tmallResultString, regxPrice);
+			ArrayList<HashMap<String, Object>> tmallResults = new ArrayList<HashMap<String, Object>>();
+			for (int i = 0; i < tmallIDArray.size(); i++) {
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("goodName", tmallNameArray.get(i));
+				map.put("goodBitmap", tmallBitmapArray.get(i));
+				map.put("goodPrice", tmallPriceArray.get(i));
+				map.put("goodSource", "天猫商城");
+				tmallResults.add(map);
+			}
+			finalResults.addAll(tmallResults);
+		} else if (2 == source) {
+			regxID = "<li class=\".*?  item\"  name=\"000000000(.*?)\">";
+			regxName = "<a title=\"(.*?)\" class=\"search-bl\"";
+			regxImageLink = "<img class=\"err-product\" src=\"(.*?)\"";
+			suningResultString = getStringResult(null, url);
+			ArrayList<String> suningIDArray = matchResults(suningResultString, regxID);
+			ArrayList<String> suningNameArray = matchResults(suningResultString, regxName);
+			ArrayList<String> suningImageLinkArray = matchResults(suningResultString, regxImageLink);
+			ArrayList<Bitmap> suningBitmapArray = getBitmapArray(suningImageLinkArray);
+			ArrayList<Bitmap> suningPriceArray = getSuningPrice(suningIDArray);
+			ArrayList<HashMap<String, Object>> suningResults = new ArrayList<HashMap<String, Object>>();
+			for (int i = 0; i < suningIDArray.size(); i++) {
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("goodName", suningNameArray.get(i));
+				map.put("goodBitmap", suningBitmapArray.get(i));
+				map.put("goodPrice", suningPriceArray.get(i));
+				map.put("goodSource", "苏宁易购");
+				suningResults.add(map);
+			}
+			finalResults.addAll(suningResults);
+		}
+		return finalResults;
+	}
 
-		searchResultString = doPost(null, url);
-		goodsImageLinkArray = matchResults(searchResultString, regxImageLink);
-		goodIDArray = matchResults(searchResultString, regxID);
-		goodsNameArray = (matchResults(searchResultString, regxName));
-		filterThread = new Thread(new FilterName());
-		filterThread.start();
-		Iterator<String> id = goodIDArray.iterator();
+	private static ArrayList<String> getJdPrice(ArrayList<String> jdIDArray) throws IOException {
+		Log.d("picksomething", "** call getJdPrice ** jdIDArray.size = " + jdIDArray.size());
+		Iterator<String> id = jdIDArray.iterator();
+		ArrayList<String> tempArray = new ArrayList<String>();
 		String jsonItem = null;
 		while (id.hasNext()) {
 			String tempurl = id.next();
 			String jsonUrl = "http://p.3.cn/prices/mgets?skuIds=J_" + tempurl;
 			Log.d("picksomething", "start get good json url");
-			jsonItem = searchInJD(jsonUrl);
+			jsonItem = requestJdJson(jsonUrl);
 			try {
-				finalDataList = AnalysisJson(jsonItem);
+				tempArray.add(parseJson(jsonItem));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-		return finalDataList;
-
+		Log.d("picksomething", "** call getJdPrice ** tempArray.size = " + tempArray.size());
+		return tempArray;
 	}
 
-	public static ArrayList<HashMap<String, Object>> AnalysisJson(String jsonItem) throws JSONException, IOException {
+	private static ArrayList<String> filterJdName(ArrayList<String> jdNameArray) {
+		ArrayList<String> tempNameArray = new ArrayList<String>();
+		for (int i = 0; i < jdNameArray.size(); i++) {
+			String nameForFilter = jdNameArray.get(i) + ">";
+			String filtedName = htmlRemoveTag(nameForFilter);
+			tempNameArray.add(i, filtedName);
+		}
+		return tempNameArray;
+	}
+
+	public static String parseJson(String jsonItem) throws JSONException, IOException {
 		JSONArray jsonArray = null;
 		jsonArray = new JSONArray(jsonItem);
+		String tempPrice = null;
 		for (int i = 0; i < jsonArray.length(); i++) {
 			JSONObject jsonObject = jsonArray.getJSONObject(i);
-			// 初始化HashMap
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("id", jsonObject.getString("id"));
-			map.put("price", jsonObject.getString("p"));
-			jsonDataList.add(map);
+			tempPrice = jsonObject.getString("p");
+			Log.d("picksomething", "** call parseJson ** price = " + tempPrice);
 		}
-		return jsonDataList;
+		return tempPrice;
 	}
 
-	public static class FilterName implements Runnable {
-		@Override
-		public void run() {
-			for (int i = 0; i < goodsNameArray.size(); i++) {
-				String nameForFilter = goodsNameArray.get(i) + ">";
-				String filtedName = htmlRemoveTag(nameForFilter);
-				goodsNameArray.set(i, filtedName);
-				try {
-					Bitmap bitmap = null;
-					bitmap = getGoodsImage(goodsImageLinkArray.get(i));
-					goodsImageArray.add(i, bitmap);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+	private static ArrayList<Bitmap> getBitmapArray(ArrayList<String> imageUrlArray) {
+		ArrayList<Bitmap> bitmapArray = new ArrayList<Bitmap>();
+		Bitmap bitmap = null;
+		for (int i = 0; i < imageUrlArray.size(); i++) {
+			try {
+				bitmap = getGoodsImage(imageUrlArray.get(i));
+				bitmapArray.add(i, bitmap);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
-
+		return bitmapArray;
 	}
 
-	public static void addGoodInfo() throws IOException {
-		for (int j = 0; j < goodsNameArray.size(); j++) {
-			HashMap<String, Object> goodMap = jsonDataList.get(j);
-			String mLink = "http://m.jd.com/product/" + goodIDArray.get(j) + ".html";
-			Log.d("picksomething", "goodsNameArray.get(j) = " + goodsNameArray.get(j));
-			goodMap.put("name", goodsNameArray.get(j));
-			Log.d("picksomething", "goodsNameArray.size() = " + goodsNameArray.size());
-			goodMap.put("link", mLink);
-			goodMap.put("image", goodsImageArray.get(j));
+	private static ArrayList<Bitmap> getSuningPrice(ArrayList<String> suningIDArray) {
+		ArrayList<Bitmap> priceBitmap = new ArrayList<Bitmap>();
+		Bitmap bitmap = null;
+		for (int i = 0; i < suningIDArray.size(); i++) {
+			try {
+				String tempBitmapUrl = "http://price2.suning.cn/webapp/wcs/stores/prdprice/" + suningIDArray.get(i)
+						+ "_9051_10000_9-1.png";
+				bitmap = getGoodsImage(tempBitmapUrl);
+				priceBitmap.add(i, bitmap);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		return priceBitmap;
 	}
 }
