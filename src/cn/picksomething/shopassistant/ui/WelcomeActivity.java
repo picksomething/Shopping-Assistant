@@ -12,18 +12,25 @@ import cn.picksomething.shopassistant.util.SharePrefUtils;
 
 public class WelcomeActivity extends Activity{
 	
+	private final static int BEGIN_LOGIN = 1;
+	private final static int BEGIN_GUIDE = 2;
+	private final static int BEGIN_HOMEPAGE = 3;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welcome);
-		Log.d("tag2","r is "+SharePrefUtils.getWizardFlag(this));
-		if (SharePrefUtils.getWizardFlag(this)) {
-			SharePrefUtils.saveWizardFlagPreferece(this, false);			
-			begin(1);
+
+	    if (SharePrefUtils.getGuideFlag(this)) {
+			SharePrefUtils.saveGuideFlagPreferece(this, false);			
+			begin(BEGIN_GUIDE);
+		}
+	    else if (SharePrefUtils.getLoginFlag(this)){
+			begin(BEGIN_LOGIN);
 		}
 		else
-			begin(2);
+			begin(BEGIN_HOMEPAGE);
 		
 	}
 	
@@ -34,13 +41,15 @@ public class WelcomeActivity extends Activity{
 			@Override
 			public void run() {
 				Intent intent;
-				if(index==1)
+				if (index==BEGIN_LOGIN)
+					intent =new Intent(WelcomeActivity.this,LoginActivity.class);
+				else if(index==BEGIN_GUIDE)
 					intent = new Intent(WelcomeActivity.this,GuideActivity.class);
 				else
 					intent = new Intent(WelcomeActivity.this,HomePage.class);
 				startActivity(intent);
 				finish();
 			}
-		}, 5000);
+		}, 3000);
 	}
 }

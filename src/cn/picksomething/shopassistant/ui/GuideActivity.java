@@ -146,7 +146,7 @@ public class GuideActivity extends SherlockActivity{
 					
 					@Override
 					public void onClick(View v) {
-						Intent intent=new Intent(GuideActivity.this,HomePage.class);
+						Intent intent=new Intent(GuideActivity.this,LoginActivity.class);
 						mContext.startActivity(intent);
 						finish();
 					}

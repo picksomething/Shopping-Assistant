@@ -7,19 +7,31 @@ import android.preference.PreferenceManager;
 
 
 public class SharePrefUtils {
-	public final static String NEED_WIZARD = "need_wizard";
-	
+
 	
 	// 向导
-	public static void saveWizardFlagPreferece(Context context, boolean t) {
+	public static void saveGuideFlagPreferece(Context context, boolean t) {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 		Editor editor = sp.edit();
-		editor.putBoolean(Constant.NEED_WIZARD, t);
+		editor.putBoolean(Constant.NEED_GUIDE, t);
 		editor.commit();
 	}
 
-	public static boolean getWizardFlag(Context context) {
+	public static boolean getGuideFlag(Context context) {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-		return sp.getBoolean(Constant.NEED_WIZARD, true);
+		return sp.getBoolean(Constant.NEED_GUIDE, true);
 	}
+	
+	public static void saveLoginFlagPreferece(Context context, boolean t) {
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+		Editor editor = sp.edit();
+		editor.putBoolean(Constant.NEED_LOGIN, t);
+		editor.commit();
+	}
+	
+	public static boolean getLoginFlag(Context context) {
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+		return sp.getBoolean(Constant.NEED_LOGIN, true);
+	}
+
 }

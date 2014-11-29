@@ -14,5 +14,10 @@
     <string name="goodOriginPrice">原价：</string>
     <string name="goodID">商品ID：</string>
     <string name="start">立即体验</string>
+    <string name="email">邮箱</string>
+    <string name="password">密码</string>
+    <string name="login">登陆</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="register">注册</string>
 
 </resources>
