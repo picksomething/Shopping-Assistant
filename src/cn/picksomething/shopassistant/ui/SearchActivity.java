@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +40,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 	private ListView resultsListView;
 	private MyHandler myHandler;
 	private SearchResultAdapter resultAdapter;
+	private ProgressDialog progress;
 
 	ArrayList<HashMap<String, Object>> resultData;
 	private static final int DATA_OK = 200;
@@ -88,6 +93,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 		// TODO Auto-generated method stub
 		resultData = new ArrayList<HashMap<String, Object>>();
 		myHandler = new MyHandler(getMainLooper());
+		progress = new ProgressDialog(this);
 	}
 
 	/**
@@ -101,31 +107,75 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.search:
-			HttpTools.init();
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					goodName = searchEdit.getText().toString();
-					jdSearchURL = "http://search.jd.com/Search?keyword=" + goodName + "&enc=utf-8";
-					try {
-						resultData = HttpTools.getJsonDataByID(jdSearchURL,goodName);
-						HttpTools.addGoodInfo();
-						HttpTools.emptyArray();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					myHandler.sendEmptyMessage(DATA_OK);
-				}
-			}).start();
+			startSearch();
 			break;
-
 		default:
 			break;
+		}
+	}
+
+	private void startSearch() {
+		goodName = searchEdit.getText().toString();
+		jdSearchURL = "http://search.jd.com/Search?keyword=" + goodName + "&enc=utf-8";
+		new GetGoodsInfo().execute(jdSearchURL, goodName);
+	}
+
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		// TODO Auto-generated method stub
+//		if(event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+//			startSearch();
+//			Log.d("picksomething", "come here dispatchKeyEvent");
+//		}
+		return super.dispatchKeyEvent(event);
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_ENTER:
+			Log.d("picksomething", "come here onKeyDown");
+			startSearch();
+			break;
+		default:
+			break;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	private class GetGoodsInfo extends AsyncTask<String, Integer, Long> {
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			HttpTools.init();
+			progress.setMessage("Hello World");
+			progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			progress.setIndeterminate(true);
+			progress.show();
+		}
+
+		@Override
+		protected Long doInBackground(String... params) {
+			try {
+				resultData = HttpTools.getJsonDataByID(params[0], params[1]);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... values) {
+			super.onProgressUpdate(values);
+		}
+
+		@Override
+		protected void onPostExecute(Long result) {
+			super.onPostExecute(result);
+			progress.dismiss();
+			myHandler.sendEmptyMessageDelayed(DATA_OK, 1000);
 		}
 	}
 
@@ -136,7 +186,12 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 
 		@Override
 		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
+			try {
+				HttpTools.addGoodInfo();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			HttpTools.emptyArray();
 			super.handleMessage(msg);
 			resultAdapter = new SearchResultAdapter(SearchActivity.this, resultData);
 			resultsListView.setAdapter(resultAdapter);

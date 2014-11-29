@@ -250,23 +250,24 @@ public class HttpTools {
 	}
 
 	public static ArrayList<HashMap<String, Object>> getJsonDataByID(String url, String goodName) throws IOException {
+		Thread filterThread = null;
 		String regxID = "sku=\"(.*?)\"";
 		String regxName = "<div class=\"p-name\">\\n\\s+<.*?>\\n\\s+(.*?) class='adwords' .*?></font>";
-		// String regxLink =
-		// "<div class=\"p-img\">\\n\\s+<a target=\"_blank\" href=\"(.*?)\" onclick=\".*?\">";
 		String regxImageLink = "<img width=\"220\".*? data-lazyload=\"(.*?)\" />";
 		String searchResultString = null;
 
 		searchResultString = doPost(null, url);
-		// goodsLinkArray = matchResults(searchResultString, regxLink);
 		goodsImageLinkArray = matchResults(searchResultString, regxImageLink);
 		goodIDArray = matchResults(searchResultString, regxID);
 		goodsNameArray = (matchResults(searchResultString, regxName));
+		filterThread = new Thread(new FilterName());
+		filterThread.start();
 		Iterator<String> id = goodIDArray.iterator();
 		String jsonItem = null;
 		while (id.hasNext()) {
 			String tempurl = id.next();
 			String jsonUrl = "http://p.3.cn/prices/mgets?skuIds=J_" + tempurl;
+			Log.d("picksomething", "start get good json url");
 			jsonItem = searchInJD(jsonUrl);
 			try {
 				finalDataList = AnalysisJson(jsonItem);
@@ -278,7 +279,7 @@ public class HttpTools {
 
 	}
 
-	public static ArrayList<HashMap<String, Object>> AnalysisJson(String jsonItem) throws JSONException {
+	public static ArrayList<HashMap<String, Object>> AnalysisJson(String jsonItem) throws JSONException, IOException {
 		JSONArray jsonArray = null;
 		jsonArray = new JSONArray(jsonItem);
 		for (int i = 0; i < jsonArray.length(); i++) {
@@ -292,15 +293,32 @@ public class HttpTools {
 		return jsonDataList;
 	}
 
+	public static class FilterName implements Runnable {
+		@Override
+		public void run() {
+			for (int i = 0; i < goodsNameArray.size(); i++) {
+				String nameForFilter = goodsNameArray.get(i) + ">";
+				String filtedName = htmlRemoveTag(nameForFilter);
+				goodsNameArray.set(i, filtedName);
+				try {
+					Bitmap bitmap = null;
+					bitmap = getGoodsImage(goodsImageLinkArray.get(i));
+					goodsImageArray.add(i, bitmap);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
+
 	public static void addGoodInfo() throws IOException {
 		for (int j = 0; j < goodsNameArray.size(); j++) {
 			HashMap<String, Object> goodMap = jsonDataList.get(j);
-			String nameForFilter = goodsNameArray.get(j) + ">";
-			String filtedName = htmlRemoveTag(nameForFilter);
 			String mLink = "http://m.jd.com/product/" + goodIDArray.get(j) + ".html";
-			Log.d("picksomething", "after filter realName = " + filtedName);
-			goodsImageArray.add(getGoodsImage(goodsImageLinkArray.get(j)));
-			goodMap.put("name", filtedName);
+			Log.d("picksomething", "goodsNameArray.get(j) = " + goodsNameArray.get(j));
+			goodMap.put("name", goodsNameArray.get(j));
+			Log.d("picksomething", "goodsNameArray.size() = " + goodsNameArray.size());
 			goodMap.put("link", mLink);
 			goodMap.put("image", goodsImageArray.get(j));
 		}

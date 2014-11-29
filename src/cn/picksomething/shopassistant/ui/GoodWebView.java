@@ -27,7 +27,7 @@ public class GoodWebView extends Activity {
 		initWebView();
 		intent = getIntent();
 		String url = intent.getStringExtra("url");
-		Log.d("picksomething", "url = " + url);
+		// Log.d("picksomething", "url = " + url);
 		myWebView.loadUrl(url);
 	}
 
@@ -43,13 +43,9 @@ public class GoodWebView extends Activity {
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
 			String domain = Uri.parse(url).getHost();
-			Log.d("picksomething", "domain is =" + domain);
 			if (null != domain) {
-				if (domain.contains("jd.com") || domain.equals("taobao.com") || domain.equals("tmall.com")
-						|| domain.equals("suning.com")) {
-					// This is my web site, so do not override; let my WebView
-					// load
-					// the page
+				if (domain.contains("jd.com") || domain.contains("suning.com")) {
+					// Do not override; let my WebView load the page
 					return false;
 				}
 			}
