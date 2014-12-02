@@ -32,6 +32,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:textColor="@color/red" />
+        
+        <ImageView
+            android:id="@+id/goodItem_price_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/red" 
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/goodItem_source"

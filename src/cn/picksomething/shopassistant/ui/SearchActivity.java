@@ -38,7 +38,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 	private SearchResultAdapter resultAdapter;
 	private ProgressDialog progress;
 
-	ArrayList<HashMap<String, Object>> SearchResults;
+	ArrayList<HashMap<String, Object>> searchResults;
 	private String goodName;
 	private String jdSearchURL;
 	private String tmallSearchURL;
@@ -91,7 +91,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 	 * @created 2014年11月5日
 	 */
 	private void initDatas() {
-		SearchResults = new ArrayList<HashMap<String, Object>>();
+		searchResults = new ArrayList<HashMap<String, Object>>();
 		myHandler = new MyHandler(getMainLooper());
 		progress = new ProgressDialog(this);
 	}
@@ -122,7 +122,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 		tmallSearchURL = "http://list.tmall.com/search_product.htm?q=" + goodName;
 		suningSearchURL = "http://search.suning.com/" + goodName + "/";
 		gomeSearchURL = "http://www.gome.com.cn/search?question=" + goodName;
-		new GetGoodsInfo().execute(jdSearchURL, tmallSearchURL);
+		new GetGoodsInfo().execute(jdSearchURL, tmallSearchURL, suningSearchURL);
 	}
 
 	private class GetGoodsInfo extends AsyncTask<String, Integer, Long> {
@@ -140,8 +140,9 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 		@Override
 		protected Long doInBackground(String... params) {
 			try {
-				SearchResults = HttpTools.getFinalReslut(params[0], 0);
-				SearchResults = HttpTools.getFinalReslut(params[1], 1);
+				searchResults = HttpTools.getFinalReslut(params[0], 0);
+				searchResults = HttpTools.getFinalReslut(params[1], 1);
+				searchResults = HttpTools.getFinalReslut(params[2], 2);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -171,14 +172,14 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 		public void handleMessage(Message msg) {
 			HttpTools.emptyArray();
 			super.handleMessage(msg);
-			resultAdapter = new SearchResultAdapter(SearchActivity.this, SearchResults);
+			resultAdapter = new SearchResultAdapter(SearchActivity.this, searchResults);
 			resultsListView.setAdapter(resultAdapter);
 			resultAdapter.notifyDataSetChanged();
 			resultsListView.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					HashMap<String, Object> map = SearchResults.get(position);
+					HashMap<String, Object> map = searchResults.get(position);
 					String url = (String) (map.get("detailLink"));
 					Intent intent = new Intent(SearchActivity.this, GoodWebView.class);
 					intent.putExtra("url", url);

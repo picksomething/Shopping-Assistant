@@ -50,7 +50,8 @@ public class SearchResultAdapter extends BaseAdapter {
 			holder.goodBitmap = (ImageView) convertView.findViewById(R.id.goodItem_icon);
 			holder.goodName = (TextView) convertView.findViewById(R.id.goodItem_name);
 			holder.goodPrice = (TextView) convertView.findViewById(R.id.goodItem_price);
-			holder.goodSource = (TextView)convertView.findViewById(R.id.goodItem_source);
+			holder.goodPrice_image = (ImageView)convertView.findViewById(R.id.goodItem_price_image);
+			holder.goodSource = (TextView) convertView.findViewById(R.id.goodItem_source);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -58,9 +59,13 @@ public class SearchResultAdapter extends BaseAdapter {
 		if (null != list) {
 			holder.goodBitmap.setImageBitmap((Bitmap) list.get(position).get("goodBitmap"));
 			holder.goodName.setText(list.get(position).get("goodName").toString());
-			holder.goodPrice.setText("￥ " + list.get(position).get("goodPrice").toString());
+			if (list.get(position).get("goodSource").toString().equals("苏宁易购")) {
+				holder.goodPrice_image.setImageBitmap((Bitmap) list.get(position).get("goodPrice"));
+			} else {
+				holder.goodPrice.setText("￥ " + list.get(position).get("goodPrice").toString());
+			}
 			holder.goodSource.setText("来自:" + list.get(position).get("goodSource").toString());
-		}else{
+		} else {
 			holder.goodBitmap.setImageResource(R.drawable.ic_launcher);
 			holder.goodName.setText(list.get(position).get("name").toString());
 			holder.goodPrice.setText("￥ " + list.get(position).get("price").toString());
@@ -72,6 +77,7 @@ public class SearchResultAdapter extends BaseAdapter {
 		ImageView goodBitmap;
 		TextView goodName;
 		TextView goodPrice;
+		ImageView goodPrice_image;
 		TextView goodSource;
 	}
 

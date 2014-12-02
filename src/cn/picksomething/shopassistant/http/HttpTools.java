@@ -25,6 +25,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.CoreConnectionPNames;
+import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
@@ -97,6 +98,7 @@ public class HttpTools {
 		String result = null;
 		// get HttpClient intance
 		HttpClient httpClient = new DefaultHttpClient();
+		httpClient.getParams().setParameter(CoreProtocolPNames.USER_AGENT, "Custom user agent");
 		// get HttpPost instance
 		HttpPost httpPost = new HttpPost(url);
 		if (null != params) {
@@ -119,7 +121,7 @@ public class HttpTools {
 			if (200 == httpResponse.getStatusLine().getStatusCode()) {
 				result = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
 			} else {
-				Log.d("caobin", "httppost request failed");
+				Log.d("caobin", "httppost request failed and code = " + httpResponse.getStatusLine().getStatusCode());
 			}
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -191,7 +193,7 @@ public class HttpTools {
 		ArrayList<String> matchArray = new ArrayList<String>();
 		Pattern p = Pattern.compile(regx);
 		Matcher m = p.matcher(result);
-		while (m.find() && (5 > resultNum)) {
+		while (m.find() && (4 > resultNum)) {
 			resultNum++;
 			MatchResult mr = m.toMatchResult();
 			matchArray.add(mr.group(1));
@@ -242,6 +244,7 @@ public class HttpTools {
 	}
 
 	public static ArrayList<HashMap<String, Object>> getFinalReslut(String url, int source) throws IOException {
+		Log.d("caobin", "url = " + url);
 		if (0 == source) {
 			regxID = "sku=\"(.*?)\"";
 			regxName = "<div class=\"p-name\">\\n\\s+<.*?>\\n\\s+(.*?) class='adwords' .*?></font>";
@@ -288,7 +291,7 @@ public class HttpTools {
 			}
 			finalResults.addAll(tmallResults);
 		} else if (2 == source) {
-			regxID = "<li class=\".*?  item\"  name=\"000000000(.*?)\">";
+			regxID = "<li class=\".*?\"  name=\"000000000(.*?)\">";
 			regxName = "<a title=\"(.*?)\" class=\"search-bl\"";
 			regxImageLink = "<img class=\"err-product\" src=\"(.*?)\"";
 			suningResultString = getStringResult(null, url);
@@ -297,6 +300,7 @@ public class HttpTools {
 			ArrayList<String> suningImageLinkArray = matchResults(suningResultString, regxImageLink);
 			ArrayList<Bitmap> suningBitmapArray = getBitmapArray(suningImageLinkArray);
 			ArrayList<Bitmap> suningPriceArray = getSuningPrice(suningIDArray);
+			ArrayList<String> suningDetailLinkAddr = getDetailLinkByID(suningIDArray, source);
 			ArrayList<HashMap<String, Object>> suningResults = new ArrayList<HashMap<String, Object>>();
 			for (int i = 0; i < suningIDArray.size(); i++) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
@@ -304,6 +308,7 @@ public class HttpTools {
 				map.put("goodBitmap", suningBitmapArray.get(i));
 				map.put("goodPrice", suningPriceArray.get(i));
 				map.put("goodSource", "苏宁易购");
+				map.put("detailLink", suningDetailLinkAddr.get(i));
 				suningResults.add(map);
 			}
 			finalResults.addAll(suningResults);
@@ -320,6 +325,7 @@ public class HttpTools {
 			} else if (1 == source) {
 				tempLinkStr = "http://detail.m.tmall.com/item.htm?id=" + jdIDArray.get(i);
 			} else if (2 == source) {
+				tempLinkStr = "http://m.suning.com/product/"+jdIDArray.get(i)+".html";
 			}
 			tempLinkArray.add(i, tempLinkStr);
 		}
