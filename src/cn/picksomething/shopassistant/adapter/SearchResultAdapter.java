@@ -20,7 +20,6 @@ public class SearchResultAdapter extends BaseAdapter {
 	private List<HashMap<String, Object>> list;
 
 	public SearchResultAdapter(Context context, List<HashMap<String, Object>> list) {
-		// TODO Auto-generated constructor stub
 		this.mContext = context;
 		this.list = list;
 		this.mLayoutInflater = LayoutInflater.from(mContext);
@@ -28,26 +27,22 @@ public class SearchResultAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		Log.d("picksomething", "size = " + list.size());
 		return list.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return list.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
 		ViewHolder holder = null;
 		if (null == convertView) {
 			holder = new ViewHolder();

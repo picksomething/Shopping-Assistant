@@ -38,7 +38,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 	private SearchResultAdapter resultAdapter;
 	private ProgressDialog progress;
 
-	ArrayList<HashMap<String, Object>> jdSearchResults;
+	ArrayList<HashMap<String, Object>> SearchResults;
 	private String goodName;
 	private String jdSearchURL;
 	private String tmallSearchURL;
@@ -91,8 +91,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 	 * @created 2014年11月5日
 	 */
 	private void initDatas() {
-		// TODO Auto-generated method stub
-		jdSearchResults = new ArrayList<HashMap<String, Object>>();
+		SearchResults = new ArrayList<HashMap<String, Object>>();
 		myHandler = new MyHandler(getMainLooper());
 		progress = new ProgressDialog(this);
 	}
@@ -141,8 +140,8 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 		@Override
 		protected Long doInBackground(String... params) {
 			try {
-				jdSearchResults = HttpTools.getFinalReslut(params[0], 0);
-				jdSearchResults = HttpTools.getFinalReslut(params[1], 1);
+				SearchResults = HttpTools.getFinalReslut(params[0], 0);
+				SearchResults = HttpTools.getFinalReslut(params[1], 1);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -172,16 +171,15 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 		public void handleMessage(Message msg) {
 			HttpTools.emptyArray();
 			super.handleMessage(msg);
-			resultAdapter = new SearchResultAdapter(SearchActivity.this, jdSearchResults);
+			resultAdapter = new SearchResultAdapter(SearchActivity.this, SearchResults);
 			resultsListView.setAdapter(resultAdapter);
 			resultAdapter.notifyDataSetChanged();
 			resultsListView.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					// TODO Auto-generated method stub
-					HashMap<String, Object> map = jdSearchResults.get(position);
-					String url = (String) (map.get("link"));
+					HashMap<String, Object> map = SearchResults.get(position);
+					String url = (String) (map.get("detailLink"));
 					Intent intent = new Intent(SearchActivity.this, GoodWebView.class);
 					intent.putExtra("url", url);
 					startActivity(intent);

@@ -19,7 +19,6 @@ public class GoodWebView extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		this.getWindow().requestFeature(Window.FEATURE_PROGRESS);
 		setContentView(R.layout.good_detail_layout);
@@ -43,8 +42,10 @@ public class GoodWebView extends Activity {
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
 			String domain = Uri.parse(url).getHost();
+			Log.d("picksomething", domain.toString());
 			if (null != domain) {
-				if (domain.contains("jd.com") || domain.contains("suning.com")) {
+				if (domain.contains("jd.com") || domain.contains("suning.com") || domain.contains("taobao.com")
+						|| domain.contains("tmall.com")) {
 					// Do not override; let my WebView load the page
 					return false;
 				}
@@ -62,7 +63,6 @@ public class GoodWebView extends Activity {
 	private class MyWebChromeClient extends WebChromeClient {
 		@Override
 		public void onProgressChanged(WebView view, int newProgress) {
-			// TODO Auto-generated method stub
 			super.onProgressChanged(view, newProgress);
 			GoodWebView.this.setProgress(newProgress * 100);
 			Log.d("caobin", "ProgressChanged, new Progress = " + newProgress);
@@ -70,7 +70,6 @@ public class GoodWebView extends Activity {
 
 		@Override
 		public void onReceivedTitle(WebView view, String title) {
-			// TODO Auto-generated method stub
 			super.onReceivedTitle(view, title);
 			GoodWebView.this.setTitle(title);
 		}
@@ -78,7 +77,6 @@ public class GoodWebView extends Activity {
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// TODO Auto-generated method stub
 		if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
 			myWebView.goBack();
 			return true;

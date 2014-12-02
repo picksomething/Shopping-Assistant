@@ -252,12 +252,14 @@ public class HttpTools {
 			ArrayList<String> jdImageLinkArray = matchResults(jdResultString, regxImageLink);
 			ArrayList<Bitmap> jdBitmapArray = getBitmapArray(jdImageLinkArray);
 			ArrayList<String> jdPriceArray = getJdPrice(jdIDArray);
+			ArrayList<String> jdDetailLinkAddr = getDetailLinkByID(jdIDArray, source);
 			ArrayList<HashMap<String, Object>> jdResults = new ArrayList<HashMap<String, Object>>();
 			for (int i = 0; i < jdIDArray.size(); i++) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
 				map.put("goodName", jdNameArray.get(i));
 				map.put("goodBitmap", jdBitmapArray.get(i));
 				map.put("goodPrice", jdPriceArray.get(i));
+				map.put("detailLink", jdDetailLinkAddr.get(i));
 				map.put("goodSource", "京东");
 				jdResults.add(map);
 			}
@@ -273,6 +275,7 @@ public class HttpTools {
 			ArrayList<String> tmallImageLinkArray = matchResults(tmallResultString, regxImageLink);
 			ArrayList<Bitmap> tmallBitmapArray = getBitmapArray(tmallImageLinkArray);
 			ArrayList<String> tmallPriceArray = matchResults(tmallResultString, regxPrice);
+			ArrayList<String> tmallDetailLinkAddr = getDetailLinkByID(tmallIDArray, source);
 			ArrayList<HashMap<String, Object>> tmallResults = new ArrayList<HashMap<String, Object>>();
 			for (int i = 0; i < tmallIDArray.size(); i++) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
@@ -280,6 +283,7 @@ public class HttpTools {
 				map.put("goodBitmap", tmallBitmapArray.get(i));
 				map.put("goodPrice", tmallPriceArray.get(i));
 				map.put("goodSource", "天猫商城");
+				map.put("detailLink", tmallDetailLinkAddr.get(i));
 				tmallResults.add(map);
 			}
 			finalResults.addAll(tmallResults);
@@ -305,6 +309,21 @@ public class HttpTools {
 			finalResults.addAll(suningResults);
 		}
 		return finalResults;
+	}
+
+	private static ArrayList<String> getDetailLinkByID(ArrayList<String> jdIDArray, int source) {
+		ArrayList<String> tempLinkArray = new ArrayList<String>();
+		String tempLinkStr = null;
+		for (int i = 0; i < jdIDArray.size(); i++) {
+			if (0 == source) {
+				tempLinkStr = "http://item.jd.com/" + jdIDArray.get(i) + ".html";
+			} else if (1 == source) {
+				tempLinkStr = "http://detail.m.tmall.com/item.htm?id=" + jdIDArray.get(i);
+			} else if (2 == source) {
+			}
+			tempLinkArray.add(i, tempLinkStr);
+		}
+		return tempLinkArray;
 	}
 
 	private static ArrayList<String> getJdPrice(ArrayList<String> jdIDArray) throws IOException {
