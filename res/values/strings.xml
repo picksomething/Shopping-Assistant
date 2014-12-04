@@ -19,5 +19,6 @@
     <string name="login">登陆</string>
     <string name="forget_password">忘记密码</string>
     <string name="register">注册</string>
+    <string name="click_to_login">点击登录</string>
 
 </resources>

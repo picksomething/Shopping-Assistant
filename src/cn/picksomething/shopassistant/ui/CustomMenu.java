@@ -5,20 +5,30 @@ import java.util.List;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import cn.picksomething.shopassistant.R;
+import cn.picksomething.shopassistant.ShoppingApplication;
 import cn.picksomething.shopassistant.adapter.MenuAdapter;
 import cn.picksomething.shopassistant.model.ItemSettingModel;
 
-public class CustomMenu extends Fragment {
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+
+public class CustomMenu extends Fragment implements OnClickListener {
 	private View mView;
 	private Context mContext;
 	private ListView listview_common;
 	private ListView listview_setting;
+	private View mHeadView;
+	private ImageView mAvatar;
+	private TextView mName;
 	private List<ItemSettingModel> commonModels;  //常用列表的Item集合
 	private List<ItemSettingModel> settingModels;   //设置列表的item集合
 	
@@ -39,7 +49,14 @@ public class CustomMenu extends Fragment {
 	private void initView() {
 		listview_common = (ListView) mView.findViewById(R.id.listview_common);
 		listview_setting = (ListView) mView.findViewById(R.id.listview_setting);
-
+		mAvatar=(ImageView) mView.findViewById(R.id.img_icon_top);	
+		mName=(TextView) mView.findViewById(R.id.tv_name_top);
+		if(ShoppingApplication.hasLogined()==true){
+			mName.setText(ShoppingApplication.getUsername());
+		}
+		mAvatar.setOnClickListener(this);
+		mName.setOnClickListener(this);
+		
 	}
 	/**
 	 * 初始化变量
@@ -77,6 +94,21 @@ public class CustomMenu extends Fragment {
        //创建适配器并且进行绑定数据到listview中
 		listview_common.setAdapter(new MenuAdapter(mContext, commonModels));
 		listview_setting.setAdapter(new MenuAdapter(mContext, settingModels));
+	}
+	
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()){
+		case R.id.img_icon_top:
+		case R.id.tv_name_top:
+			if(ShoppingApplication.hasLogined()==false){
+				Intent intent=new Intent(getActivity(),LoginActivity.class);
+				startActivity(intent);
+			}
+			((SlidingFragmentActivity)getActivity()).toggle();
+			break;
+		}
+		
 	}
 
 }

@@ -8,23 +8,28 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.picksomething.shopassistant.R;
 import cn.picksomething.shopassistant.ShoppingApplication;
 import cn.picksomething.shopassistant.http.HttpTools;
 
-public class LoginActivity extends Activity implements OnClickListener{
+public class LoginActivity extends SherlockFragmentActivity implements OnClickListener{
 	private EditText mUserEditText;
 	private EditText mPwdEditText;
 	private TextView mForgetText;
@@ -33,6 +38,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 	private String mPassword;
 	private String mUserEmail;
 	private MyHandler mHandler;
+	private ImageButton mTabBack;
 	
 	
 	
@@ -45,6 +51,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 	}
 	
 	public void initView(){
+		initActionBar();
 		mUserEditText=(EditText) findViewById(R.id.email);
 		mPwdEditText=(EditText) findViewById(R.id.password);
 		mForgetText=(TextView) findViewById(R.id.forget_password_text);
@@ -52,6 +59,19 @@ public class LoginActivity extends Activity implements OnClickListener{
 		mLoginButton=(Button) findViewById(R.id.login_button);
 		mHandler=new MyHandler(getMainLooper());
 		mLoginButton.setOnClickListener(this);
+	}
+	
+	public void initActionBar(){
+		View headView = LayoutInflater.from(this).inflate(R.layout.actionbar2, null);
+		mTabBack = (ImageButton) headView.findViewById(R.id.tab_back);
+		mTabBack.setOnClickListener(this);
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setCustomView(headView);
+		actionBar.setDisplayShowCustomEnabled(true);
+		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+		actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.title_bg));
 	}
 
 	@Override
@@ -82,6 +102,8 @@ public class LoginActivity extends Activity implements OnClickListener{
 				}
 			}).start();
 			break;
+		case R.id.tab_back:
+			finish();
 	   }
 	}
 	

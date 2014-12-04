@@ -6,7 +6,32 @@
     android:background="@drawable/slidemenu_background">
     
     <!-- 顶部头像，姓名，标签 -->
-    <include layout="@layout/slidemenu_top" />
+    <RelativeLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+     > 
+     <!-- 头像 -->
+    <ImageView 
+        android:id="@+id/img_icon_top"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:layout_centerVertical="true"
+        android:src="@drawable/avatar"
+     />
+    <!-- 名字 -->
+     <TextView 
+        android:id="@+id/tv_name_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/click_to_login"
+        android:layout_toRightOf="@id/img_icon_top"
+        android:textSize="20sp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dip"
+        android:textColor="@color/white"/>  
+        
+
+	</RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
