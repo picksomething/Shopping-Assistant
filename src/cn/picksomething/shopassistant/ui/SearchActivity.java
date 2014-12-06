@@ -1,6 +1,8 @@
 package cn.picksomething.shopassistant.ui;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -119,8 +121,13 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 	private void startSearch() {
 		goodName = searchEdit.getText().toString();
 		jdSearchURL = "http://search.jd.com/Search?keyword=" + goodName + "&enc=utf-8";
-		tmallSearchURL = "http://list.tmall.com/search_product.htm?q=" + goodName;
-		suningSearchURL = "http://search.suning.com/" + goodName + "/";
+		try {
+			tmallSearchURL = "http://list.tmall.com/search_product.htm?q=" + URLEncoder.encode(goodName, "GBK");
+			suningSearchURL = "http://search.suning.com/" + URLEncoder.encode(goodName, "UTF-8") + "/cityId=9051";
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		gomeSearchURL = "http://www.gome.com.cn/search?question=" + goodName;
 		new GetGoodsInfo().execute(jdSearchURL, tmallSearchURL, suningSearchURL);
 	}

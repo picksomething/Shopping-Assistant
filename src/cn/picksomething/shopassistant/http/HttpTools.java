@@ -46,6 +46,7 @@ public class HttpTools {
 	private static String jdResultString;
 	private static String tmallResultString;
 	private static String suningResultString;
+	private static String regxPriceID;
 
 	public static void init() {
 		finalResults = new ArrayList<HashMap<String, Object>>();
@@ -153,7 +154,7 @@ public class HttpTools {
 		try {
 			HttpResponse response = httpClient.execute(httpPost);
 			if (200 == response.getStatusLine().getStatusCode()) {
-				results = EntityUtils.toString(response.getEntity(), "UTF-8");
+				results = EntityUtils.toString(response.getEntity(), "GBK");
 				Log.d("caobin", "results = " + results);
 			} else {
 				Log.d("caobin", "httppost request failed");
@@ -178,6 +179,7 @@ public class HttpTools {
 			if (conn.getResponseCode() == 200) {
 				InputStream inStream = conn.getInputStream();
 				bitmap = BitmapFactory.decodeStream(inStream);
+				inStream.close();
 			}
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -186,6 +188,39 @@ public class HttpTools {
 
 		return bitmap;
 
+	}
+
+	public static Bitmap DecodeFromURL(String url) {
+		URL mURL = null;
+		Bitmap mBitmap = null;
+		InputStream mInputStream = null;
+		try {
+			// <strong>图片</strong>地址
+			mURL = new URL(url);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			// 获得URL的输入流
+			mInputStream = mURL.openStream();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// 解码输入流
+		mBitmap = BitmapFactory.decodeStream(mInputStream);
+		// 显示<strong>图片</strong>
+
+		try {
+			// 关闭输入流
+			mInputStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mBitmap;
 	}
 
 	public static ArrayList<String> matchResults(String result, String regx) {
@@ -268,11 +303,13 @@ public class HttpTools {
 			}
 			finalResults.addAll(jdResults);
 		} else if (1 == source) {
+			Log.d("caobin", "after encode url = " + url);
 			regxID = "<div class=\"product\" data-id=\"(.*?)\"";
 			regxName = "title=\"(.*?)\" data-p=\".*?\" >";
 			regxImageLink = "<img  src=  \"(.*?)\" />";
 			regxPrice = "<em title=\"(.*?)\">";
 			tmallResultString = getStringResult(null, url);
+			Log.d("caobin", "tmall search result = " + suningResultString);
 			ArrayList<String> tmallIDArray = matchResults(tmallResultString, regxID);
 			ArrayList<String> tmallNameArray = matchResults(tmallResultString, regxName);
 			ArrayList<String> tmallImageLinkArray = matchResults(tmallResultString, regxImageLink);
@@ -291,15 +328,19 @@ public class HttpTools {
 			}
 			finalResults.addAll(tmallResults);
 		} else if (2 == source) {
+			Log.d("caobin", "after encode url = " + url);
 			regxID = "<li class=\".*?\"  name=\"000000000(.*?)\">";
+			regxPriceID = "<li class=\"(.*?) 000000000.*?\"  name=\".*?\">";
 			regxName = "<a title=\"(.*?)\" class=\"search-bl\"";
 			regxImageLink = "<img class=\"err-product\" src=\"(.*?)\"";
 			suningResultString = getStringResult(null, url);
+			Log.d("caobin", "suning search result = " + suningResultString);
 			ArrayList<String> suningIDArray = matchResults(suningResultString, regxID);
+			ArrayList<String> suningPriceIDArray = matchResults(suningResultString, regxPriceID);
 			ArrayList<String> suningNameArray = matchResults(suningResultString, regxName);
 			ArrayList<String> suningImageLinkArray = matchResults(suningResultString, regxImageLink);
 			ArrayList<Bitmap> suningBitmapArray = getBitmapArray(suningImageLinkArray);
-			ArrayList<Bitmap> suningPriceArray = getSuningPrice(suningIDArray);
+			ArrayList<Bitmap> suningPriceArray = getSuningPrice(suningPriceIDArray);
 			ArrayList<String> suningDetailLinkAddr = getDetailLinkByID(suningIDArray, source);
 			ArrayList<HashMap<String, Object>> suningResults = new ArrayList<HashMap<String, Object>>();
 			for (int i = 0; i < suningIDArray.size(); i++) {
@@ -316,16 +357,16 @@ public class HttpTools {
 		return finalResults;
 	}
 
-	private static ArrayList<String> getDetailLinkByID(ArrayList<String> jdIDArray, int source) {
+	private static ArrayList<String> getDetailLinkByID(ArrayList<String> IDArray, int source) {
 		ArrayList<String> tempLinkArray = new ArrayList<String>();
 		String tempLinkStr = null;
-		for (int i = 0; i < jdIDArray.size(); i++) {
+		for (int i = 0; i < IDArray.size(); i++) {
 			if (0 == source) {
-				tempLinkStr = "http://item.jd.com/" + jdIDArray.get(i) + ".html";
+				tempLinkStr = "http://item.jd.com/" + IDArray.get(i) + ".html";
 			} else if (1 == source) {
-				tempLinkStr = "http://detail.m.tmall.com/item.htm?id=" + jdIDArray.get(i);
+				tempLinkStr = "http://detail.m.tmall.com/item.htm?id=" + IDArray.get(i);
 			} else if (2 == source) {
-				tempLinkStr = "http://m.suning.com/product/"+jdIDArray.get(i)+".html";
+				tempLinkStr = "http://m.suning.com/product/" + IDArray.get(i) + ".html";
 			}
 			tempLinkArray.add(i, tempLinkStr);
 		}
@@ -392,14 +433,11 @@ public class HttpTools {
 		ArrayList<Bitmap> priceBitmap = new ArrayList<Bitmap>();
 		Bitmap bitmap = null;
 		for (int i = 0; i < suningIDArray.size(); i++) {
-			try {
-				String tempBitmapUrl = "http://price2.suning.cn/webapp/wcs/stores/prdprice/" + suningIDArray.get(i)
-						+ "_9051_10000_9-1.png";
-				bitmap = getGoodsImage(tempBitmapUrl);
-				priceBitmap.add(i, bitmap);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			String tempBitmapUrl = "http://price2.suning.cn/webapp/wcs/stores/prdprice/" + suningIDArray.get(i)
+					+ "_9051_10000_9-1.png";
+			Log.d("picksomething", "tempBitmapURL = " + tempBitmapUrl);
+			bitmap = DecodeFromURL(tempBitmapUrl);
+			priceBitmap.add(i, bitmap);
 		}
 		return priceBitmap;
 	}
