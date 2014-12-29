@@ -47,6 +47,7 @@ public class HttpTools {
 	private static String tmallResultString;
 	private static String suningResultString;
 	private static String regxPriceID;
+	private static String gomeResultString;
 
 	public static void init() {
 		finalResults = new ArrayList<HashMap<String, Object>>();
@@ -279,7 +280,6 @@ public class HttpTools {
 	}
 
 	public static ArrayList<HashMap<String, Object>> getFinalReslut(String url, int source) throws IOException {
-		Log.d("caobin", "url = " + url);
 		if (0 == source) {
 			regxID = "sku=\"(.*?)\"";
 			regxName = "<div class=\"p-name\">\\n\\s+<.*?>\\n\\s+(.*?) class='adwords' .*?></font>";
@@ -290,7 +290,7 @@ public class HttpTools {
 			ArrayList<String> jdImageLinkArray = matchResults(jdResultString, regxImageLink);
 			ArrayList<Bitmap> jdBitmapArray = getBitmapArray(jdImageLinkArray);
 			ArrayList<String> jdPriceArray = getJdPrice(jdIDArray);
-			ArrayList<String> jdDetailLinkAddr = getDetailLinkByID(jdIDArray, source);
+			ArrayList<String> jdDetailLinkAddr = getDetailLinkByID(jdIDArray, null, source);
 			ArrayList<HashMap<String, Object>> jdResults = new ArrayList<HashMap<String, Object>>();
 			for (int i = 0; i < jdIDArray.size(); i++) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
@@ -303,19 +303,17 @@ public class HttpTools {
 			}
 			finalResults.addAll(jdResults);
 		} else if (1 == source) {
-			Log.d("caobin", "after encode url = " + url);
 			regxID = "<div class=\"product\" data-id=\"(.*?)\"";
 			regxName = "title=\"(.*?)\" data-p=\".*?\" >";
 			regxImageLink = "<img  src=  \"(.*?)\" />";
 			regxPrice = "<em title=\"(.*?)\">";
 			tmallResultString = getStringResult(null, url);
-			Log.d("caobin", "tmall search result = " + suningResultString);
 			ArrayList<String> tmallIDArray = matchResults(tmallResultString, regxID);
 			ArrayList<String> tmallNameArray = matchResults(tmallResultString, regxName);
 			ArrayList<String> tmallImageLinkArray = matchResults(tmallResultString, regxImageLink);
 			ArrayList<Bitmap> tmallBitmapArray = getBitmapArray(tmallImageLinkArray);
 			ArrayList<String> tmallPriceArray = matchResults(tmallResultString, regxPrice);
-			ArrayList<String> tmallDetailLinkAddr = getDetailLinkByID(tmallIDArray, source);
+			ArrayList<String> tmallDetailLinkAddr = getDetailLinkByID(tmallIDArray, null, source);
 			ArrayList<HashMap<String, Object>> tmallResults = new ArrayList<HashMap<String, Object>>();
 			for (int i = 0; i < tmallIDArray.size(); i++) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
@@ -328,20 +326,18 @@ public class HttpTools {
 			}
 			finalResults.addAll(tmallResults);
 		} else if (2 == source) {
-			Log.d("caobin", "after encode url = " + url);
 			regxID = "<li class=\".*?\"  name=\"000000000(.*?)\">";
 			regxPriceID = "<li class=\"(.*?) 000000000.*?\"  name=\".*?\">";
 			regxName = "<a title=\"(.*?)\" class=\"search-bl\"";
 			regxImageLink = "<img class=\"err-product\" src=\"(.*?)\"";
 			suningResultString = getStringResult(null, url);
-			Log.d("caobin", "suning search result = " + suningResultString);
 			ArrayList<String> suningIDArray = matchResults(suningResultString, regxID);
 			ArrayList<String> suningPriceIDArray = matchResults(suningResultString, regxPriceID);
 			ArrayList<String> suningNameArray = matchResults(suningResultString, regxName);
 			ArrayList<String> suningImageLinkArray = matchResults(suningResultString, regxImageLink);
 			ArrayList<Bitmap> suningBitmapArray = getBitmapArray(suningImageLinkArray);
 			ArrayList<Bitmap> suningPriceArray = getSuningPrice(suningPriceIDArray);
-			ArrayList<String> suningDetailLinkAddr = getDetailLinkByID(suningIDArray, source);
+			ArrayList<String> suningDetailLinkAddr = getDetailLinkByID(suningIDArray, null, source);
 			ArrayList<HashMap<String, Object>> suningResults = new ArrayList<HashMap<String, Object>>();
 			for (int i = 0; i < suningIDArray.size(); i++) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
@@ -353,20 +349,48 @@ public class HttpTools {
 				suningResults.add(map);
 			}
 			finalResults.addAll(suningResults);
+		} else if (3 == source) {
+			String regxPro_ID = "<li class=\"\" g-li=\"(.*?)\" g-data=\".*?\">";
+			String regxSku_ID = "<span id=\"(.*?)-sku-id\">.*?</span>";
+			regxPriceID = "<span class=\"price\"><em>¥</em>(.*?)</span>";
+			regxName = "<a track=\".*?\" target=\"_blank\" href=\".*?\" ><img alt=\"(.*?)\" gome-src=\".*?\" src=\"http://app.gome.com.cn/images/grey.gif\"></a>";
+			regxImageLink = "<a track=\".*?\" target=\"_blank\" href=\".*?\" ><img alt=\".*?\" gome-src=\"(.*?)\" src=\"http://app.gome.com.cn/images/grey.gif\"></a>";
+			gomeResultString = getStringResult(null, url);
+			ArrayList<String> gomeProIDArray = matchResults(gomeResultString, regxPro_ID);
+			ArrayList<String> gomeSkuIDArray = matchResults(gomeResultString, regxSku_ID);
+			ArrayList<String> gomePriceIDArray = matchResults(gomeResultString, regxPriceID);
+			ArrayList<String> gomeNameArray = matchResults(gomeResultString, regxName);
+			ArrayList<String> gomeImageLinkArray = matchResults(gomeResultString, regxImageLink);
+			ArrayList<Bitmap> gomeBitmapArray = getBitmapArray(gomeImageLinkArray);
+			ArrayList<String> gomeDetailLinkAddr = getDetailLinkByID(gomeProIDArray, gomeSkuIDArray, source);
+			ArrayList<HashMap<String, Object>> suningResults = new ArrayList<HashMap<String, Object>>();
+			for (int i = 0; i < gomeProIDArray.size(); i++) {
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("goodName", gomeNameArray.get(i));
+				map.put("goodBitmap", gomeBitmapArray.get(i));
+				map.put("goodPrice", gomePriceIDArray.get(i));
+				map.put("goodSource", "国美在线");
+				map.put("detailLink", gomeDetailLinkAddr.get(i));
+				suningResults.add(map);
+			}
+			finalResults.addAll(suningResults);
 		}
 		return finalResults;
 	}
 
-	private static ArrayList<String> getDetailLinkByID(ArrayList<String> IDArray, int source) {
+	private static ArrayList<String> getDetailLinkByID(ArrayList<String> ProIDArray, ArrayList<String> SkuIDArray,
+			int source) {
 		ArrayList<String> tempLinkArray = new ArrayList<String>();
 		String tempLinkStr = null;
-		for (int i = 0; i < IDArray.size(); i++) {
+		for (int i = 0; i < ProIDArray.size(); i++) {
 			if (0 == source) {
-				tempLinkStr = "http://item.jd.com/" + IDArray.get(i) + ".html";
+				tempLinkStr = "http://item.jd.com/" + ProIDArray.get(i) + ".html";
 			} else if (1 == source) {
-				tempLinkStr = "http://detail.m.tmall.com/item.htm?id=" + IDArray.get(i);
+				tempLinkStr = "http://detail.m.tmall.com/item.htm?id=" + ProIDArray.get(i);
 			} else if (2 == source) {
-				tempLinkStr = "http://m.suning.com/product/" + IDArray.get(i) + ".html";
+				tempLinkStr = "http://m.suning.com/product/" + ProIDArray.get(i) + ".html";
+			} else if (3 == source) {
+				tempLinkStr = "http://m.gome.com.cn/product-" + ProIDArray.get(i) + "-" + SkuIDArray.get(i) + "-0-0.html";
 			}
 			tempLinkArray.add(i, tempLinkStr);
 		}

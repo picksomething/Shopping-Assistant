@@ -124,12 +124,11 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 		try {
 			tmallSearchURL = "http://list.tmall.com/search_product.htm?q=" + URLEncoder.encode(goodName, "GBK");
 			suningSearchURL = "http://search.suning.com/" + URLEncoder.encode(goodName, "UTF-8") + "/cityId=9051";
+			gomeSearchURL = "http://www.gome.com.cn/search?question=" + URLEncoder.encode(goodName, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		gomeSearchURL = "http://www.gome.com.cn/search?question=" + goodName;
-		new GetGoodsInfo().execute(jdSearchURL, tmallSearchURL, suningSearchURL);
+		new GetGoodsInfo().execute(jdSearchURL, tmallSearchURL, suningSearchURL, gomeSearchURL);
 	}
 
 	private class GetGoodsInfo extends AsyncTask<String, Integer, Long> {
@@ -150,6 +149,7 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
 				searchResults = HttpTools.getFinalReslut(params[0], 0);
 				searchResults = HttpTools.getFinalReslut(params[1], 1);
 				searchResults = HttpTools.getFinalReslut(params[2], 2);
+				searchResults = HttpTools.getFinalReslut(params[3], 3);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
