@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <issue id="InflateParams" severity="ignore">
-        <ignore path="src/cn/picksomething/shopassistant/adapter/MenuAdapter.java" />
+        <ignore path="src/cn/picksomething/shopassistant/adapter/MenuAdapter.java"/>
     </issue>
     <issue id="SetJavaScriptEnabled">
-        <ignore path="src/cn/picksomething/shopassistant/ui/GoodWebView.java" />
+        <ignore path="src/cn/picksomething/shopassistant/ui/GoodWebView.java"/>
     </issue>
 </lint>

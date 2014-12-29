@@ -25,111 +25,109 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import cn.picksomething.shopassistant.R;
 import cn.picksomething.shopassistant.ShoppingApplication;
 import cn.picksomething.shopassistant.http.HttpTools;
 
-public class LoginActivity extends SherlockFragmentActivity implements OnClickListener{
-	private EditText mUserEditText;
-	private EditText mPwdEditText;
-	private TextView mForgetText;
-	private TextView mRegisterText;
-	private Button mLoginButton;
-	private String mPassword;
-	private String mUserEmail;
-	private MyHandler mHandler;
-	private ImageButton mTabBack;
-	
-	
-	
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
-		initView();
-	}
-	
-	public void initView(){
-		initActionBar();
-		mUserEditText=(EditText) findViewById(R.id.email);
-		mPwdEditText=(EditText) findViewById(R.id.password);
-		mForgetText=(TextView) findViewById(R.id.forget_password_text);
-		mRegisterText=(TextView) findViewById(R.id.register_text);
-		mLoginButton=(Button) findViewById(R.id.login_button);
-		mHandler=new MyHandler(getMainLooper());
-		mLoginButton.setOnClickListener(this);
-	}
-	
-	public void initActionBar(){
-		View headView = LayoutInflater.from(this).inflate(R.layout.actionbar2, null);
-		mTabBack = (ImageButton) headView.findViewById(R.id.tab_back);
-		mTabBack.setOnClickListener(this);
-		ActionBar actionBar = getSupportActionBar();
-		actionBar.setCustomView(headView);
-		actionBar.setDisplayShowCustomEnabled(true);
-		actionBar.setDisplayShowHomeEnabled(false);
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.title_bg));
-	}
+public class LoginActivity extends SherlockFragmentActivity implements OnClickListener {
+    private EditText mUserEditText;
+    private EditText mPwdEditText;
+    private TextView mForgetText;
+    private TextView mRegisterText;
+    private Button mLoginButton;
+    private String mPassword;
+    private String mUserEmail;
+    private MyHandler mHandler;
+    private ImageButton mTabBack;
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.login_button:
-			new Thread(new Runnable() {
 
-				@Override
-				public void run() {
-					mUserEmail=mUserEditText.getText().toString();
-					mPassword=mPwdEditText.getText().toString();
-					String url = "http://10.0.2.2:8080/shopping/LoginServlet";
-					List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
-					nameValuePair.add(new BasicNameValuePair("email", mUserEmail));
-					nameValuePair.add(new BasicNameValuePair("password", mPassword));
-					JSONObject jsonObject=null;
-					try {
-						String retStr = HttpTools.getStringResult(nameValuePair, url);
-						 jsonObject = new JSONObject(retStr);
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					Message msg = mHandler.obtainMessage();    
-		            msg.obj = jsonObject;  
-		            mHandler.sendMessage(msg);  
-				}
-			}).start();
-			break;
-		case R.id.tab_back:
-			finish();
-	   }
-	}
-	
-	class MyHandler extends Handler{
-		public MyHandler(Looper looper) {
-			super(looper);
-		}
-		
-		@Override
-		public void handleMessage(Message msg) {
-			try {
-				if(((JSONObject)msg.obj).getString("msg").equals("ok")){
-					Toast.makeText(LoginActivity.this,"success",Toast.LENGTH_SHORT).show();
-					Intent intent=new Intent(LoginActivity.this,HomePage.class);
-					String username=((JSONObject)msg.obj).getString("username");
-					ShoppingApplication.setUsername(username);
-					startActivity(intent);
-					finish();
-				}
-				else{
-					Toast.makeText(LoginActivity.this,"login error",Toast.LENGTH_SHORT).show();
-				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        initView();
+    }
+
+    public void initView() {
+        initActionBar();
+        mUserEditText = (EditText) findViewById(R.id.email);
+        mPwdEditText = (EditText) findViewById(R.id.password);
+        mForgetText = (TextView) findViewById(R.id.forget_password_text);
+        mRegisterText = (TextView) findViewById(R.id.register_text);
+        mLoginButton = (Button) findViewById(R.id.login_button);
+        mHandler = new MyHandler(getMainLooper());
+        mLoginButton.setOnClickListener(this);
+    }
+
+    public void initActionBar() {
+        View headView = LayoutInflater.from(this).inflate(R.layout.actionbar2, null);
+        mTabBack = (ImageButton) headView.findViewById(R.id.tab_back);
+        mTabBack.setOnClickListener(this);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setCustomView(headView);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.title_bg));
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.login_button:
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        mUserEmail = mUserEditText.getText().toString();
+                        mPassword = mPwdEditText.getText().toString();
+                        String url = "http://10.0.2.2:8080/shopping/LoginServlet";
+                        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
+                        nameValuePair.add(new BasicNameValuePair("email", mUserEmail));
+                        nameValuePair.add(new BasicNameValuePair("password", mPassword));
+                        JSONObject jsonObject = null;
+                        try {
+                            String retStr = HttpTools.getStringResult(nameValuePair, url);
+                            jsonObject = new JSONObject(retStr);
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        Message msg = mHandler.obtainMessage();
+                        msg.obj = jsonObject;
+                        mHandler.sendMessage(msg);
+                    }
+                }).start();
+                break;
+            case R.id.tab_back:
+                finish();
+        }
+    }
+
+    class MyHandler extends Handler {
+        public MyHandler(Looper looper) {
+            super(looper);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            try {
+                if (((JSONObject) msg.obj).getString("msg").equals("ok")) {
+                    Toast.makeText(LoginActivity.this, "success", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, HomePage.class);
+                    String username = ((JSONObject) msg.obj).getString("username");
+                    ShoppingApplication.setUsername(username);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "login error", Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
 }
