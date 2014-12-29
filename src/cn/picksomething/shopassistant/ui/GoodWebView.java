@@ -46,7 +46,7 @@ public class GoodWebView extends Activity {
             Log.d("picksomething", domain.toString());
             if (null != domain) {
                 if (domain.contains("jd.com") || domain.contains("suning.com") || domain.contains("taobao.com")
-                        || domain.contains("tmall.com")) {
+                        || domain.contains("tmall.com") || domain.contains("gome.com.cn")) {
                     // Do not override; let my WebView load the page
                     return false;
                 }
