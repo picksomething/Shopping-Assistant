@@ -6,7 +6,6 @@ import java.util.TimerTask;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import cn.picksomething.shopassistant.R;
 import cn.picksomething.shopassistant.util.SharePrefUtils;
