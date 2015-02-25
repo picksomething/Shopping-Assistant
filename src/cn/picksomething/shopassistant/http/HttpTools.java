@@ -277,6 +277,7 @@ public class HttpTools {
     }
 
     public static ArrayList<HashMap<String, Object>> getFinalReslut(String url, int source) throws IOException {
+        Log.d("picksomething","source == " + source);
         if (0 == source) {
             regxID = "sku=\"(.*?)\"";
             regxName = "<div class=\"p-name\">\\n\\s+<.*?>\\n\\s+(.*?) class='adwords' .*?></font>";
@@ -325,7 +326,7 @@ public class HttpTools {
         } else if (2 == source) {
             regxID = "<li class=\".*?\"  name=\"000000000(.*?)\">";
             regxPriceID = "<li class=\"(.*?) 000000000.*?\"  name=\".*?\">";
-            regxName = "<a title=\"(.*?)\" class=\"search-bl\"";
+            regxName = "<a track=\".*?\" .*?><img alt=\"(.*?)\" .*?></a>";
             regxImageLink = "<img class=\"err-product\" src=\"(.*?)\"";
             suningResultString = getStringResult(null, url);
             ArrayList<String> suningIDArray = matchResults(suningResultString, regxID);
@@ -347,11 +348,11 @@ public class HttpTools {
             }
             finalResults.addAll(suningResults);
         } else if (3 == source) {
-            String regxPro_ID = "<li class=\"\" g-li=\"(.*?)\" g-data=\".*?\">";
+            String regxPro_ID = "<li class=\"prdli\" g-li=\"(.*?)\">";
             String regxSku_ID = "<span id=\"(.*?)-sku-id\">.*?</span>";
             regxPriceID = "<span class=\"price\"><em>¥</em>(.*?)</span>";
-            regxName = "<a track=\".*?\" target=\"_blank\" href=\".*?\" ><img alt=\"(.*?)\" gome-src=\".*?\" src=\"http://app.gome.com.cn/images/grey.gif\"></a>";
-            regxImageLink = "<a track=\".*?\" target=\"_blank\" href=\".*?\" ><img alt=\".*?\" gome-src=\"(.*?)\" src=\"http://app.gome.com.cn/images/grey.gif\"></a>";
+            regxName = "<a track=\".*?\" .*?><img alt=\"(.*?)\" .*?></a>";
+            regxImageLink = "<a track=\".*?\" .*?><img alt=\".*?\" gome-src=\"(.*?)\" .*?></a>";
             gomeResultString = getStringResult(null, url);
             ArrayList<String> gomeProIDArray = matchResults(gomeResultString, regxPro_ID);
             ArrayList<String> gomeSkuIDArray = matchResults(gomeResultString, regxSku_ID);
@@ -360,7 +361,7 @@ public class HttpTools {
             ArrayList<String> gomeImageLinkArray = matchResults(gomeResultString, regxImageLink);
             ArrayList<Bitmap> gomeBitmapArray = getBitmapArray(gomeImageLinkArray);
             ArrayList<String> gomeDetailLinkAddr = getDetailLinkByID(gomeProIDArray, gomeSkuIDArray, source);
-            ArrayList<HashMap<String, Object>> suningResults = new ArrayList<HashMap<String, Object>>();
+            ArrayList<HashMap<String, Object>> gomeResults = new ArrayList<HashMap<String, Object>>();
             for (int i = 0; i < gomeProIDArray.size(); i++) {
                 HashMap<String, Object> map = new HashMap<String, Object>();
                 map.put("goodName", gomeNameArray.get(i));
@@ -368,9 +369,9 @@ public class HttpTools {
                 map.put("goodPrice", gomePriceIDArray.get(i));
                 map.put("goodSource", "国美在线");
                 map.put("detailLink", gomeDetailLinkAddr.get(i));
-                suningResults.add(map);
+                gomeResults.add(map);
             }
-            finalResults.addAll(suningResults);
+            finalResults.addAll(gomeResults);
         }
         return finalResults;
     }

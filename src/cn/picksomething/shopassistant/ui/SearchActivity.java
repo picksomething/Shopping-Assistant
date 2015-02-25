@@ -121,7 +121,6 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
         jdSearchURL = "http://search.jd.com/Search?keyword=" + goodName + "&enc=utf-8";
         try {
             tmallSearchURL = "http://list.tmall.com/search_product.htm?q=" + URLEncoder.encode(goodName, "GBK");
-            //suningSearchURL = "http://search.suning.com/" + URLEncoder.encode(goodName, "UTF-8") + "/cityId=9051";
             gomeSearchURL = "http://www.gome.com.cn/search?question=" + URLEncoder.encode(goodName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -147,7 +146,6 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
                 searchResults = HttpTools.getFinalReslut(params[0], 0);
                 searchResults = HttpTools.getFinalReslut(params[1], 1);
                 searchResults = HttpTools.getFinalReslut(params[2], 3);
-                //searchResults = HttpTools.getFinalReslut(params[3], 3);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -163,7 +161,6 @@ public class SearchActivity extends SherlockFragmentActivity implements OnClickL
         protected void onPostExecute(Long result) {
             super.onPostExecute(result);
             progress.dismiss();
-            // myHandler.sendEmptyMessageDelayed(DATA_OK, 1000);
             myHandler.sendEmptyMessage(DATA_OK);
         }
     }
