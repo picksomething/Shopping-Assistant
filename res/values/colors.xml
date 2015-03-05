@@ -14,5 +14,6 @@
 
     <!-- Custom colors  -->
     <color name="soft_blue">#84C1FF</color>
+    <color name="toolbar_background">#FF69A2DC</color>
 
 </resources>

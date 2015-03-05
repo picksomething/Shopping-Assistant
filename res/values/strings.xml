@@ -20,5 +20,8 @@
     <string name="forget_password">忘记密码</string>
     <string name="register">注册</string>
     <string name="click_to_login">点击登录</string>
+    <string name="ok">操作成功！</string>
+    <string name="no">操作失败！</string>
+    <string name="profile">个人中心</string>
 
 </resources>

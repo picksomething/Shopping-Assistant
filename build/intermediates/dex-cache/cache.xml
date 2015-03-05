@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/gongzhanhong/Shopping-Assistant/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-89a21a7907e42cfd5eaec2b9af2ffe0663ae8942.jar" />
+    </item>
+    <item
+        jar="/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/Users/gongzhanhong/Shopping-Assistant/build/intermediates/pre-dexed/debug/classes-2d4e9b5ab3f14c33d073841dece05aba3cb33f29.jar" />
+    </item>
+    <item
+        jar="/Users/gongzhanhong/android-sdk-macosx/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/Users/gongzhanhong/Shopping-Assistant/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-b10759ee048fe29f91a4b22a740de70b8a1c14e0.jar" />
+    </item>
+    <item
+        jar="/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/gongzhanhong/Shopping-Assistant/build/intermediates/pre-dexed/debug/classes-5a78939468ac868725b5b9cbd96a96d331545235.jar" />
+    </item>
+    <item
+        jar="/Users/gongzhanhong/Shopping-Assistant/libs/actionbarsherlock.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="ef9c59537a932f9a4de82e357de48d0c0fe9cf33">
+        <dex dex="/Users/gongzhanhong/Shopping-Assistant/build/intermediates/pre-dexed/debug/actionbarsherlock-5f910665e795e8f4f5deecff190438ab8a51c62e.jar" />
+    </item>
+
+</items>

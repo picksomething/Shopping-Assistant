@@ -5,6 +5,27 @@
               android:orientation="vertical"
               tools:context="cn.picksomething.shopassistant.ui.HomePage">
 
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:background="?attr/colorPrimary"
+      android:minHeight="?attr/actionBarSize"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:imeOptions="actionSearch"
+        android:singleLine="true"
+        android:hint="搜索"
+        android:layout_centerVertical="true"/>
+
+
+
+  </android.support.v7.widget.Toolbar>
+
     <ListView
         android:id="@+id/goodresults_listView"
         android:layout_width="match_parent"

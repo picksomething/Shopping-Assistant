@@ -10,6 +10,7 @@ import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +22,8 @@ import android.widget.RelativeLayout;
 
 import cn.picksomething.shopassistant.R;
 
-import com.actionbarsherlock.app.SherlockActivity;
 
-public class GuideActivity extends SherlockActivity {
+public class GuideActivity extends ActionBarActivity {
     private LayoutInflater mInflater;
     private ViewPager mViewPager;
     private ViewPagerAdapter mViewpPagerAdapter;

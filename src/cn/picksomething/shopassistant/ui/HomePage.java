@@ -1,125 +1,154 @@
 package cn.picksomething.shopassistant.ui;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-
 import cn.picksomething.shopassistant.R;
-import cn.picksomething.shopassistant.util.SharePrefUtils;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+public class HomePage extends ActionBarActivity implements OnClickListener, DrawerLayout.DrawerListener {
 
-public class HomePage extends SlidingFragmentActivity implements OnClickListener {
+  private ImageView             mSearchFrame;
+  private Toolbar               mToolBar;
+  private DrawerLayout          mDrawerLayout;
+  private LinearLayout          mDrawer;
+  private ActionBarDrawerToggle mDrawerToggle;
 
-    private ImageButton menuButton;
-    private ImageButton searchFrame;
+  private FragmentTabHost mTabHost;
+  private Class<?> fragmentArray[]   = {HotFragment.class, RecommendFragment.class};
+  private int      mImageViewArray[] = {R.drawable.tab_icon, R.drawable.tab_icon};
+  private String   mTextViewArray[]  = {"热门", "推荐"};
 
-    private FragmentTabHost mTabHost;
-    private Class<?> fragmentArray[] = {HotFragment.class, RecommendFragment.class};
-    private int mImageViewArray[] = {R.drawable.tab_icon, R.drawable.tab_icon};
-    private String mTextViewArray[] = {"热门", "推荐"};
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_home_page);
+    initView();
+  }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
-        setContentView(R.layout.activity_home_page);
-        initView();
+  @Override
+  protected void onPostCreate(Bundle savedInstanceState) {
+    super.onPostCreate(savedInstanceState);
+    Log.d("tag2", "post");
+    mDrawerToggle.syncState();
+  }
+
+  @Override public void onConfigurationChanged(Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    mDrawerToggle.onConfigurationChanged(newConfig);
+  }
+
+
+  public void initView() {
+
+    mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
+    mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+
+    int count = fragmentArray.length;
+
+    for (int i = 0; i < count; i++) {
+      TabSpec tabSpec = mTabHost.newTabSpec(mTextViewArray[i]).setIndicator(getTabItemView(i));
+      mTabHost.addTab(tabSpec, fragmentArray[i], null);
+      mTabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.selector_tab_background);
     }
+    mSearchFrame = (ImageView) findViewById(R.id.search_frame);
+    mSearchFrame.setOnClickListener(this);
 
-    public void initView() {
-        initActionBar();
-        initSlidingMenu();
+    mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+    mDrawer = (LinearLayout) findViewById(R.id.drawer);
+    mToolBar = (Toolbar) findViewById(R.id.toolbar);
 
-        // 实例化TabHost对象，得到TabHost
-        mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
-        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
-        // 得到fragment的个数
-        int count = fragmentArray.length;
+    setSupportActionBar(mToolBar);
+    getSupportActionBar().setDisplayShowTitleEnabled(false);
+    setupDrawer();
+  }
 
-        for (int i = 0; i < count; i++) {
-            // 为每一个Tab按钮设置图标、文字和内容
-            TabSpec tabSpec = mTabHost.newTabSpec(mTextViewArray[i]).setIndicator(getTabItemView(i));
-            // 将Tab按钮添加进Tab选项卡中
-            mTabHost.addTab(tabSpec, fragmentArray[i], null);
-            // 设置Tab按钮的背景
-            mTabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.selector_tab_background);
-        }
+
+  private void setupDrawer() {
+    mDrawerLayout.setDrawerListener(this);
+    mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
+    mDrawerLayout.setDrawerTitle(Gravity.START, getString(R.string.profile));
+    Log.d("tag2", "d");
+    mDrawerToggle = new ActionBarDrawerToggle(
+        this,
+        mDrawerLayout,
+        R.string.ok,
+        R.string.no
+    );
+  }
+
+  @Override
+  public void onClick(View v) {
+    // TODO Auto-generated method stub
+    switch (v.getId()) {
+      case R.id.menu_button:
+        //        toggle();// SlidingMenu的打开与关闭
+        break;
+      case R.id.search_frame:
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
+        break;
+      default:
+        break;
     }
+  }
 
-    public void initActionBar() {
-        View headView = LayoutInflater.from(this).inflate(R.layout.main_action_bar, null);
-        menuButton = (ImageButton) headView.findViewById(R.id.menu_button);
-        searchFrame = (ImageButton) headView.findViewById(R.id.search_frame);
-        menuButton.setOnClickListener(this);
-        searchFrame.setOnClickListener(this);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setCustomView(headView);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.title_bg));
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    if (mDrawerToggle.onOptionsItemSelected(item)) {
+      return true;
     }
+    return super.onOptionsItemSelected(item);
+  }
 
-    private void initSlidingMenu() {
-        setBehindContentView(R.layout.menu_frame);
-        getFragmentManager().beginTransaction().replace(R.id.menu_frame, new CustomMenu()).commit();
+  private View getTabItemView(int index) {
+    View view = LayoutInflater.from(this).inflate(R.layout.tab_item_view, null);
 
-        SlidingMenu menu = getSlidingMenu();
-        // 设置滑动阴影的宽度
-        menu.setShadowWidthRes(R.dimen.shadow_width);
-        // 设置滑动阴影的图像资源
-        menu.setShadowDrawable(R.drawable.shadow);
-        // 设置滑动菜单视图的宽度
-        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-        // 设置渐入渐出效果的值
-        menu.setFadeDegree(0.35f);
-        // 设置触摸屏幕的模式
-        menu.setTouchModeAbove(SlidingMenu.SLIDING_CONTENT);
+    ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
+    imageView.setImageResource(mImageViewArray[index]);
 
+    TextView textView = (TextView) view.findViewById(R.id.textview);
+    textView.setText(mTextViewArray[index]);
+
+    return view;
+  }
+
+
+  @Override public void onDrawerSlide(View view, float v) {
+    mDrawerToggle.onDrawerSlide(view, v);
+  }
+
+  @Override public void onDrawerOpened(View view) {
+    mDrawerToggle.onDrawerOpened(view);
+  }
+
+  @Override public void onDrawerClosed(View view) {
+    mDrawerToggle.onDrawerClosed(view);
+  }
+
+  @Override public void onDrawerStateChanged(int i) {
+    mDrawerToggle.onDrawerStateChanged(i);
+  }
+
+  @Override public void onBackPressed() {
+    if (mDrawerLayout.isDrawerOpen(mDrawer)) {
+      mDrawerLayout.closeDrawer(mDrawer);
+    } else {
+      super.onBackPressed();
     }
-
-    @Override
-    public void onClick(View v) {
-        // TODO Auto-generated method stub
-        switch (v.getId()) {
-            case R.id.menu_button:
-                toggle();// SlidingMenu的打开与关闭
-                break;
-            case R.id.search_frame:
-                Intent intent = new Intent(this, SearchActivity.class);
-                startActivity(intent);
-                break;
-            default:
-                break;
-        }
-    }
-
-    /**
-     * 给Tab按钮设置图标和文字
-     */
-    private View getTabItemView(int index) {
-        View view = LayoutInflater.from(this).inflate(R.layout.tab_item_view, null);
-
-        ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
-        imageView.setImageResource(mImageViewArray[index]);
-
-        TextView textView = (TextView) view.findViewById(R.id.textview);
-        textView.setText(mTextViewArray[index]);
-
-        return view;
-    }
+  }
 }
