@@ -170,10 +170,9 @@ public class HttpTools {
         } catch (IOException e) {
           e.printStackTrace();
         }
-
-      return bitmap;
-
+        return bitmap;
     }
+
 
 
 }

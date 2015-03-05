@@ -322,4 +322,5 @@ public class ParseTool {
     return priceBitmap;
   }
 
+
 }

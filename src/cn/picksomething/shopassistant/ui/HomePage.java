@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TabHost.TabSpec;
@@ -27,6 +29,8 @@ public class HomePage extends ActionBarActivity implements OnClickListener, Draw
   private DrawerLayout          mDrawerLayout;
   private LinearLayout          mDrawer;
   private ActionBarDrawerToggle mDrawerToggle;
+
+
 
   private FragmentTabHost mTabHost;
   private Class<?> fragmentArray[]   = {HotFragment.class, RecommendFragment.class};

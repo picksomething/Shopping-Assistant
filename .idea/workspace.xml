@@ -18,28 +18,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb7dd604-7be2-48a5-bcaa-dfc41801fe3a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/GuideActivity.java" afterPath="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/GuideActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/HomePage.java" afterPath="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/HomePage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cn/picksomething/shopassistant/http/HttpTools.java" afterPath="$PROJECT_DIR$/src/cn/picksomething/shopassistant/http/HttpTools.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/LoginActivity.java" afterPath="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/LoginActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/RecommendFragment.java" afterPath="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/RecommendFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cn/picksomething/shopassistant/http/ParseTool.java" afterPath="$PROJECT_DIR$/src/cn/picksomething/shopassistant/http/ParseTool.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/SearchActivity.java" afterPath="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/SearchActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Shopping-Assistant.iml" afterPath="$PROJECT_DIR$/Shopping-Assistant.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jeremyfeinstein/slidingmenu/lib/app/SlidingActivity.java" afterPath="$PROJECT_DIR$/src/com/jeremyfeinstein/slidingmenu/lib/app/SlidingActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jeremyfeinstein/slidingmenu/lib/app/SlidingFragmentActivity.java" afterPath="$PROJECT_DIR$/src/com/jeremyfeinstein/slidingmenu/lib/app/SlidingFragmentActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/activity_home_page.xml" afterPath="$PROJECT_DIR$/res/layout/activity_home_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/activity_search.xml" afterPath="$PROJECT_DIR$/res/layout/activity_search.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/colors.xml" afterPath="$PROJECT_DIR$/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/menu/home_page.xml" afterPath="$PROJECT_DIR$/res/menu/home_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/recommend_fragment.xml" afterPath="$PROJECT_DIR$/res/layout/recommend_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/styles.xml" afterPath="$PROJECT_DIR$/res/values/styles.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-v11/styles.xml" afterPath="$PROJECT_DIR$/res/values-v11/styles.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-v14/styles.xml" afterPath="$PROJECT_DIR$/res/values-v14/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/main_action_bar.xml" afterPath="$PROJECT_DIR$/res/layout/main_action_bar.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/menu_frame.xml" afterPath="$PROJECT_DIR$/res/layout/menu_frame.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/slidemenu_layout.xml" afterPath="$PROJECT_DIR$/res/layout/slidemenu_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Shopping-Assistant.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,7 +59,7 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="175" max-vertical-offset="825">
+            <state vertical-scroll-proportion="-14.642858" vertical-offset="175" max-vertical-offset="825">
               <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
               <folding />
             </state>
@@ -90,16 +76,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/LoginActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="1815">
-              <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="styles.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/values/styles.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -110,22 +86,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SlidingActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/jeremyfeinstein/slidingmenu/lib/app/SlidingActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="2355">
-              <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SearchActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="SearchActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/SearchActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.321429" vertical-offset="1543" max-vertical-offset="2520">
-              <caret line="149" column="63" selection-start-line="149" selection-start-column="63" selection-end-line="149" selection-end-column="63" />
-              <folding />
+            <state vertical-scroll-proportion="0.18478261" vertical-offset="1636" max-vertical-offset="2280">
+              <caret line="149" column="42" selection-start-line="149" selection-start-column="42" selection-end-line="149" selection-end-column="42" />
+              <folding>
+                <element signature="e#4600#4601#0" expanded="true" />
+                <element signature="e#4627#4628#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -133,8 +102,18 @@
       <file leaf-file-name="HttpTools.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cn/picksomething/shopassistant/http/HttpTools.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2250">
-              <caret line="61" column="43" selection-start-line="61" selection-start-column="43" selection-end-line="61" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1535" max-vertical-offset="2235">
+              <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ParseTool.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cn/picksomething/shopassistant/http/ParseTool.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2345" max-vertical-offset="4680">
+              <caret line="202" column="5" selection-start-line="202" selection-start-column="5" selection-end-line="202" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -163,12 +142,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomePage.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="HomePage.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/HomePage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.1967456" vertical-offset="0" max-vertical-offset="2010">
-              <caret line="117" column="42" selection-start-line="117" selection-start-column="42" selection-end-line="117" selection-end-column="42" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2340">
+              <caret line="29" column="40" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -735,8 +716,6 @@
         <option value="$PROJECT_DIR$/res/layout/recommend_fragment.xml" />
         <option value="$PROJECT_DIR$/src/cn/picksomething/shopassistant/model/RecommendEntry.java" />
         <option value="$PROJECT_DIR$/src/cn/picksomething/shopassistant/model/RecommendItem.java" />
-        <option value="$PROJECT_DIR$/src/cn/picksomething/shopassistant/http/HttpTools.java" />
-        <option value="$PROJECT_DIR$/src/cn/picksomething/shopassistant/http/ParseTool.java" />
         <option value="$PROJECT_DIR$/res/layout/recommend_entry.xml" />
         <option value="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/RecommendFragment.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
@@ -752,10 +731,12 @@
         <option value="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/LoginActivity.java" />
         <option value="$PROJECT_DIR$/src/com/jeremyfeinstein/slidingmenu/lib/app/SlidingActivity.java" />
         <option value="$PROJECT_DIR$/src/com/jeremyfeinstein/slidingmenu/lib/app/SlidingFragmentActivity.java" />
-        <option value="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/HomePage.java" />
         <option value="$PROJECT_DIR$/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/res/layout/drawer.xml" />
         <option value="$PROJECT_DIR$/res/layout/activity_search.xml" />
+        <option value="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/HomePage.java" />
+        <option value="$PROJECT_DIR$/src/cn/picksomething/shopassistant/http/HttpTools.java" />
+        <option value="$PROJECT_DIR$/src/cn/picksomething/shopassistant/http/ParseTool.java" />
         <option value="$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/SearchActivity.java" />
       </list>
     </option>
@@ -861,6 +842,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shopping-Assistant" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shopping-Assistant" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shopassistant" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="http" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1024,7 +1027,7 @@
     <property name="LayoutCode.rearrangeEntriesJava" value="false" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="home&#9;FILE&#9;file:///Users/gongzhanhong/Shopping-Assistant/src/cn/picksomething/shopassistant/ui/HomePage.java&#10;Http&#9;FILE&#9;file:///Users/gongzhanhong/Shopping-Assistant/src/cn/picksomething/shopassistant/http/HttpTools.java&#10;String&#9;FILE&#9;file:///Users/gongzhanhong/Shopping-Assistant/res/values/strings.xml&#10;color&#9;FILE&#9;file:///Users/gongzhanhong/Shopping-Assistant/res/values/colors.xml" />
+    <property name="SearchEverywhereHistoryKey" value="se&#9;FILE&#9;file:///Users/gongzhanhong/Shopping-Assistant/src/cn/picksomething/shopassistant/ui/SearchActivity.java&#10;home&#9;FILE&#9;file:///Users/gongzhanhong/Shopping-Assistant/src/cn/picksomething/shopassistant/ui/HomePage.java&#10;Http&#9;FILE&#9;file:///Users/gongzhanhong/Shopping-Assistant/src/cn/picksomething/shopassistant/http/HttpTools.java&#10;String&#9;FILE&#9;file:///Users/gongzhanhong/Shopping-Assistant/res/values/strings.xml&#10;color&#9;FILE&#9;file:///Users/gongzhanhong/Shopping-Assistant/res/values/colors.xml" />
   </component>
   <component name="RunManager" selected="Android Application.Shopping-Assistant">
     <configuration default="false" name="Shopping-Assistant [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -1322,14 +1325,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/HomePage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1185" max-vertical-offset="1965">
-          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/HotFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="525" max-vertical-offset="1530">
@@ -1441,13 +1436,6 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="285">
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/picksomething/shopassistant/http/ParseTool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="4965">
-          <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -1678,7 +1666,7 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="175" max-vertical-offset="825">
+        <state vertical-scroll-proportion="-14.642858" vertical-offset="175" max-vertical-offset="825">
           <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
           <folding />
         </state>
@@ -1703,27 +1691,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/SearchActivity.java">
+    <entry file="file://$USER_HOME$/android-sdk-macosx/sources/android-21/java/util/regex/Matcher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.321429" vertical-offset="1543" max-vertical-offset="2520">
-          <caret line="149" column="63" selection-start-line="149" selection-start-column="63" selection-end-line="149" selection-end-column="63" />
+        <state vertical-scroll-proportion="0.33285713" vertical-offset="5647" max-vertical-offset="8970">
+          <caret line="414" column="23" selection-start-line="414" selection-start-column="23" selection-end-line="414" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cn/picksomething/shopassistant/http/HttpTools.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2250">
-          <caret line="61" column="43" selection-start-line="61" selection-start-column="43" selection-end-line="61" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1535" max-vertical-offset="2235">
+          <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/picksomething/shopassistant/http/ParseTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2345" max-vertical-offset="4680">
+          <caret line="202" column="5" selection-start-line="202" selection-start-column="5" selection-end-line="202" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/HomePage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.1967456" vertical-offset="0" max-vertical-offset="2010">
-          <caret line="117" column="42" selection-start-line="117" selection-start-column="42" selection-end-line="117" selection-end-column="42" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2340">
+          <caret line="29" column="40" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/picksomething/shopassistant/ui/SearchActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18478261" vertical-offset="1636" max-vertical-offset="2280">
+          <caret line="149" column="42" selection-start-line="149" selection-start-column="42" selection-end-line="149" selection-end-column="42" />
+          <folding>
+            <element signature="e#4600#4601#0" expanded="true" />
+            <element signature="e#4627#4628#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

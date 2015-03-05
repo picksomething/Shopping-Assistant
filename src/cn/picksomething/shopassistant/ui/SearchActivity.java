@@ -74,22 +74,6 @@ public class SearchActivity extends ActionBarActivity implements OnClickListener
     });
   }
 
-  //    public void initActionBar() {
-  //        View headView = LayoutInflater.from(this).inflate(R.layout.main_action_bar, null);
-  //        menuButton = (ImageButton) headView.findViewById(R.id.menu_button);
-  //        searchFrame = (ImageButton) headView.findViewById(R.id.search_frame);
-  //        searchEdit = (EditText) headView.findViewById(R.id.editText);
-  //        searchButton = (Button) headView.findViewById(R.id.search);
-  //        menuButton.setVisibility(View.GONE);
-  //        searchFrame.setVisibility(View.GONE);
-  //        searchEdit.setVisibility(View.VISIBLE);
-  //        searchButton.setVisibility(View.VISIBLE);
-  //        ActionBar actionBar = getSupportActionBar();
-  //        actionBar.setCustomView(headView);
-  //        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-  //        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.title_bg));
-  //    }
-
 
   /**
    * @author caobin
@@ -123,7 +107,6 @@ public class SearchActivity extends ActionBarActivity implements OnClickListener
     jdSearchURL = "http://search.jd.com/Search?keyword=" + goodName + "&enc=utf-8";
     try {
       tmallSearchURL = "http://list.tmall.com/search_product.htm?q=" + URLEncoder.encode(goodName, "GBK");
-      //suningSearchURL = "http://search.suning.com/" + URLEncoder.encode(goodName, "UTF-8") + "/cityId=9051";
       gomeSearchURL = "http://www.gome.com.cn/search?question=" + URLEncoder.encode(goodName, "UTF-8");
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
@@ -149,7 +132,6 @@ public class SearchActivity extends ActionBarActivity implements OnClickListener
         searchResults = ParseTool.getFinalReslut(params[0], 0);
         searchResults = ParseTool.getFinalReslut(params[1], 1);
         searchResults = ParseTool.getFinalReslut(params[2], 3);
-        //searchResults = HttpTools.getFinalReslut(params[3], 3);
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -165,8 +147,8 @@ public class SearchActivity extends ActionBarActivity implements OnClickListener
     protected void onPostExecute(Long result) {
       super.onPostExecute(result);
       progress.dismiss();
-      // myHandler.sendEmptyMessageDelayed(DATA_OK, 1000);
       myHandler.sendEmptyMessage(DATA_OK);
+
     }
   }
 
