@@ -87,7 +87,6 @@ public class HomePage extends ActionBarActivity implements OnClickListener, Draw
     mDrawerLayout.setDrawerListener(this);
     mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
     mDrawerLayout.setDrawerTitle(Gravity.START, getString(R.string.profile));
-    Log.d("tag2", "d");
     mDrawerToggle = new ActionBarDrawerToggle(
         this,
         mDrawerLayout,

@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        mavenCentral()
+      mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.0.0'
@@ -9,11 +9,9 @@ buildscript {
 apply plugin: 'android'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
-    compile "com.android.support:support-v4:21.0.3"
-    compile 'com.android.support:appcompat-v7:21.0.3'
-
-
+  compile fileTree(dir: 'libs', include: '*.jar')
+  compile 'com.android.support:support-v4:21.0.3'
+  compile 'com.android.support:appcompat-v7:21.0.3'
 }
 
 android {

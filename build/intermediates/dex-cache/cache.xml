@@ -29,12 +29,5 @@
         sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
         <dex dex="/Users/gongzhanhong/Shopping-Assistant/build/intermediates/pre-dexed/debug/classes-5a78939468ac868725b5b9cbd96a96d331545235.jar" />
     </item>
-    <item
-        jar="/Users/gongzhanhong/Shopping-Assistant/libs/actionbarsherlock.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="ef9c59537a932f9a4de82e357de48d0c0fe9cf33">
-        <dex dex="/Users/gongzhanhong/Shopping-Assistant/build/intermediates/pre-dexed/debug/actionbarsherlock-5f910665e795e8f4f5deecff190438ab8a51c62e.jar" />
-    </item>
 
 </items>

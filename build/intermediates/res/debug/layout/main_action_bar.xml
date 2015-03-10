@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/actionbarLayout">
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/actionbarLayout">
 
     <ImageButton
         android:id="@+id/menu_button"
@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="13dp"
-        android:background="@drawable/menu_icon"/>
+        android:background="@drawable/menu_icon" />
 
     <ImageButton
         android:id="@+id/search_frame"
@@ -20,8 +20,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/menu_button"
-        android:background="@drawable/search_frame"
-        />
+        android:background="@drawable/search_frame" />
 
     <EditText
         android:id="@+id/editText"
@@ -36,8 +35,7 @@
         android:padding="5dp"
         android:singleLine="true"
         android:textColorHint="#aaaaaa"
-        android:textSize="16sp">
-    </EditText>
+        android:textSize="16sp"></EditText>
 
     <Button
         android:id="@+id/search"
@@ -51,6 +49,6 @@
         android:padding="5dp"
         android:text="@string/search"
         android:textColor="@color/blue"
-        android:textSize="15sp"/>
+        android:textSize="15sp" />
 
 </RelativeLayout><!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/layout/main_action_bar.xml -->
