@@ -1,5 +1,0 @@
-/Users/gongzhanhong/Shopping-Assistant/build/intermediates/classes/debug
-/Users/gongzhanhong/Shopping-Assistant/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-b10759ee048fe29f91a4b22a740de70b8a1c14e0.jar
-/Users/gongzhanhong/Shopping-Assistant/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-89a21a7907e42cfd5eaec2b9af2ffe0663ae8942.jar
-/Users/gongzhanhong/Shopping-Assistant/build/intermediates/pre-dexed/debug/classes-2d4e9b5ab3f14c33d073841dece05aba3cb33f29.jar
-/Users/gongzhanhong/Shopping-Assistant/build/intermediates/pre-dexed/debug/classes-5a78939468ac868725b5b9cbd96a96d331545235.jar
