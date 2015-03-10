@@ -54,4 +54,4 @@
       android:layout_height="match_parent"
       layout="@layout/drawer" />
 
-</android.support.v4.widget.DrawerLayout><!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/layout/activity_home_page.xml -->
+</android.support.v4.widget.DrawerLayout><!-- From: file:/Users/caobin/project/Shopping-Assistant/res/layout/activity_home_page.xml -->

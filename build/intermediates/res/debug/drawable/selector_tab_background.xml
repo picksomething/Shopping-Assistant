@@ -4,4 +4,4 @@
     <item android:drawable="@drawable/maintab_toolbar_bg2" android:state_pressed="true"/>
     <item android:drawable="@drawable/maintab_toolbar_bg2" android:state_selected="true"/>
 
-</selector><!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/drawable/selector_tab_background.xml -->
+</selector><!-- From: file:/Users/caobin/project/Shopping-Assistant/res/drawable/selector_tab_background.xml -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/arrays.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/arrays.xml -->
     <eat-comment/>
     <string-array name="arrays_commom">
         <item>消息</item>
@@ -9,7 +9,7 @@
     <string-array name="arrays_setting">
         <item>选项</item>
     </string-array>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference" name="drawerArrowStyle"/>
     <attr format="dimension" name="height"/>
@@ -21,11 +21,11 @@
     <bool name="abc_config_actionMenuItemAllCaps">true</bool>
     <bool name="abc_config_allowActionMenuItemTextWithIcon">false</bool>
     <bool name="abc_config_showMenuShortcutsWhenKeyboardPresent">false</bool>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/colors.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/colors.xml -->
     <eat-comment/>
     <color name="DarkGray">#444444</color>
     <color name="DimGray">#696969</color>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="abc_input_method_navigation_guard">@android:color/black</color>
     <color name="abc_search_url_text_normal">#7fa87f</color>
@@ -37,11 +37,11 @@
     <color name="background_floating_material_light">#ffeeeeee</color>
     <color name="background_material_dark">#ff303030</color>
     <color name="background_material_light">#ffeeeeee</color>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/colors.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/colors.xml -->
     <eat-comment/>
     <color name="black">#ff000000</color>
     <color name="blue">#358DDC</color>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
     <color name="bright_foreground_disabled_material_light">#80000000</color>
@@ -55,11 +55,11 @@
     <color name="dim_foreground_disabled_material_light">#80323232</color>
     <color name="dim_foreground_material_dark">#ffbebebe</color>
     <color name="dim_foreground_material_light">#ff323232</color>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/colors.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/colors.xml -->
     <eat-comment/>
     <color name="gray">#a7a7a7</color>
     <color name="green">#00BB00</color>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="highlighted_text_material_dark">#6680cbc4</color>
     <color name="highlighted_text_material_light">#66009688</color>
@@ -67,10 +67,10 @@
     <color name="hint_foreground_material_light">@color/bright_foreground_disabled_material_light</color>
     <color name="link_text_material_dark">@color/material_deep_teal_200</color>
     <color name="link_text_material_light">@color/material_deep_teal_500</color>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/colors.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/colors.xml -->
     <eat-comment/>
     <color name="main_red">#A00000</color>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="material_blue_grey_800">#ff37474f</color>
     <color name="material_blue_grey_900">#ff263238</color>
@@ -85,10 +85,10 @@
     <color name="primary_text_default_material_light">#de000000</color>
     <color name="primary_text_disabled_material_dark">#4Dffffff</color>
     <color name="primary_text_disabled_material_light">#39000000</color>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/colors.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/colors.xml -->
     <eat-comment/>
     <color name="red">#ff0000</color>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="ripple_material_dark">#40ffffff</color>
     <color name="ripple_material_light">#40000000</color>
@@ -96,14 +96,14 @@
     <color name="secondary_text_default_material_light">#8a000000</color>
     <color name="secondary_text_disabled_material_dark">#36ffffff</color>
     <color name="secondary_text_disabled_material_light">#24000000</color>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/colors.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/colors.xml -->
     <eat-comment/>
     <color name="soft_blue">#84C1FF</color>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/colors.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/colors.xml -->
     <eat-comment/>
     <color name="toolbar_background">#FF69A2DC</color>
     <color name="white">#FFFFFFFF</color>
@@ -131,7 +131,7 @@
     <declare-styleable name="Toolbar"><attr format="reference" name="titleTextAppearance"/><attr format="reference" name="subtitleTextAppearance"/><attr name="title"/><attr name="subtitle"/><attr name="android:gravity"/><attr format="dimension" name="titleMargins"/><attr format="dimension" name="titleMarginStart"/><attr format="dimension" name="titleMarginEnd"/><attr format="dimension" name="titleMarginTop"/><attr format="dimension" name="titleMarginBottom"/><attr name="contentInsetStart"/><attr name="contentInsetEnd"/><attr name="contentInsetLeft"/><attr name="contentInsetRight"/><attr format="dimension" name="maxButtonHeight"/><attr format="reference" name="theme"/><attr format="reference" name="collapseIcon"/><attr format="string" name="collapseContentDescription"/><attr name="popupTheme"/><attr format="reference" name="navigationIcon"/><attr format="string" name="navigationContentDescription"/><attr name="android:minHeight"/></declare-styleable>
     <declare-styleable name="View"><attr format="dimension" name="paddingStart"/><attr format="dimension" name="paddingEnd"/><attr name="android:focusable"/></declare-styleable>
     <declare-styleable name="ViewStubCompat"><attr name="android:layout"/><attr name="android:inflatedId"/><attr name="android:id"/></declare-styleable>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <dimen name="abc_action_bar_default_height_material">56dp</dimen>
     <dimen name="abc_action_bar_default_padding_material">4dp</dimen>
@@ -170,11 +170,11 @@
     <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
     <dimen name="abc_text_size_title_material">20sp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/dimens.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <item name="dialog_fixed_height_major" type="dimen">80%</item>
     <item name="dialog_fixed_height_minor" type="dimen">100%</item>
@@ -182,11 +182,11 @@
     <item name="dialog_fixed_width_minor" type="dimen">320dp</item>
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/dimens.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="shadow_width">15dp</dimen>
     <dimen name="slidingmenu_offset">155dp</dimen>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <item name="action_bar_activity_content" type="id"/>
     <item name="action_bar_spinner" type="id"/>
@@ -195,10 +195,10 @@
     <item name="home" type="id"/>
     <item name="progress_circular" type="id"/>
     <item name="progress_horizontal" type="id"/>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/ids.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/ids.xml -->
     <eat-comment/>
     <item name="selected_view" type="id"/>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <item name="split_action_bar" type="id"/>
     <item name="up" type="id"/>
@@ -219,7 +219,7 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/strings.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/strings.xml -->
     <eat-comment/>
     <string name="action_settings">Settings</string>
     <string name="app_name">ShopAssistant</string>
@@ -243,12 +243,12 @@
     <string name="setting">设置</string>
     <string name="slidemenu_title">购物助手，敬请期待！</string>
     <string name="start">立即体验</string>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/styles.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <item name="colorPrimary">@color/toolbar_background</item>
   </style>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Base.TextAppearance.AppCompat" parent="android:TextAppearance">
         <item name="android:textColor">?android:textColorPrimary</item>
@@ -1002,12 +1002,12 @@
         <item name="android:scaleType">center</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/styles.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/styles.xml -->
     <eat-comment/>
     <style name="Home" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="colorPrimary">@color/toolbar_background</item>
   </style>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
@@ -1219,12 +1219,12 @@
     <style name="TextAppearance.Widget.AppCompat.ExpandedMenu.Item" parent="Base.TextAppearance.Widget.AppCompat.ExpandedMenu.Item"/>
     <style name="TextAppearance.Widget.AppCompat.Toolbar.Subtitle" parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Subtitle"/>
     <style name="TextAppearance.Widget.AppCompat.Toolbar.Title" parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Title"/>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/res/values/styles.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/res/values/styles.xml -->
     <eat-comment/>
     <style name="TextStyle1">
     <item name="android:textColor">@android:color/white</item>
   </style>
-    <!-- From: file:/Users/gongzhanhong/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/Users/caobin/project/Shopping-Assistant/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Theme.AppCompat" parent="Base.Theme.AppCompat"/>
     <style name="Theme.AppCompat.CompactMenu" parent="Base.Theme.AppCompat.CompactMenu"/>
