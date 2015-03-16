@@ -24,11 +24,11 @@ proguard_logs/
 /build
 
 # Local configuration file (sdk path, etc)
-/local.properties
+local.properties
 
 # Intellij IDEA(Android Studio)
 out/
-/.idea/
+.idea/
 *.iml
 
 # Eclipse
