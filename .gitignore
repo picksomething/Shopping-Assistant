@@ -28,7 +28,7 @@ proguard_logs/
 
 # Intellij IDEA(Android Studio)
 out/
-.idea/
+/.idea/
 *.iml
 
 # Eclipse
