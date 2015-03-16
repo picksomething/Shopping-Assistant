@@ -1,12 +1,6 @@
 !/libs/
 
-!/gradle/
 
-!/settings.gradle
-!/build.gradle
-!/gradle.properties
-!/gradlew
-!/README.md
 !/bootstrap.sh
 
 
@@ -26,11 +20,11 @@ gen/
 proguard_logs/
 
 # Ignore gradle files
-.gradle/
-build/
+.gradle
+/build
 
 # Local configuration file (sdk path, etc)
-local.properties
+/local.properties
 
 # Intellij IDEA(Android Studio)
 out/
